@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h2>Product Details</h2>
+
+<div>
+    <h1>@Model.ProductName</h1>
+    <h2>@Model.ProductDescription</h2>
+    <hr />
+    <h3>Price: $@Model.Price</h3>
+    <h3>
+        @if(Model.InStock)
+        {
+            <span class="label label-success">Available</span>
+        }
+        else
+        {
+            <span class="label label-danger">Out of stock</span>
+        }
+    </h3>
+    <hr />
+    <h4>Product Id# @Model.ProductId</h4>
+</div>
+
