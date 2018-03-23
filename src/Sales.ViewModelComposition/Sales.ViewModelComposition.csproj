@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ITOps.ViewModelComposition.Mvc\ITOps.ViewModelComposition.Mvc.csproj" />
+    <ProjectReference Include="..\ITOps.ViewModelComposition\ITOps.ViewModelComposition.csproj" />
+  </ItemGroup>
+
+</Project>
