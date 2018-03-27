@@ -1,3 +1,29 @@
 ﻿body {
   padding-top: 5rem;
 }
+
+.buy-widget {
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    text-align: center;
+    padding: 1em;
+
+}
+
+.buy-widget .price {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.buy-widget .stock {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.buy-widget .in-stock {
+    color: #25873B;
+}
+
+.buy-widget .out-of-stock {
+    color: #C72A39;
+}

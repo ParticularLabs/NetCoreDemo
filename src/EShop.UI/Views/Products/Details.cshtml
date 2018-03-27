@@ -1,26 +1,33 @@
 ﻿
 @{
-    ViewData["Title"] = "Product Details";
+    ViewData["Title"] = @Model.ProductName + " - Product Details";
 }
 
-<h2>Product Details</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.ProductName" />
+        </div>
+        <div class="col-6">
+            <h1>@Model.ProductName</h1>
+            <p>Price: $@Model.Price.ToString("f2") + Free Shipping</p>
+            
+            <p>@Model.ProductDescription</p>
 
-<div>
-    <h1>@Model.ProductName</h1>
-    <h2>@Model.ProductDescription</h2>
-    <hr />
-    <h3>Price: $@Model.Price</h3>
-    <h3>
-        @if(Model.InStock)
-        {
-            <span class="label label-success">Available</span>
-        }
-        else
-        {
-            <span class="label label-danger">Out of stock</span>
-        }
-    </h3>
-    <hr />
-    <h4>Product Id# @Model.ProductId</h4>
+        </div>
+        <div class="col-3 buy-widget">
+            <p class="price">$@Model.Price.ToString("f2")</p>
+            @if(Model.InStock)
+            {
+                <p class="stock in-stock">In Stock</p>
+            }
+            else
+            {
+                <p class="stock out-of-stock">Out of Stock</p>
+            }
+            <p>
+                <button type="button" class="btn btn-success"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+            </p>
+        </div>
+    </div>
 </div>
-

@@ -36,6 +36,7 @@ namespace Marketing.ViewModelComposition
             vm.ProductName = productDetails.name;
             vm.ProductDescription = productDetails.description;
             vm.ProductId = productDetails.productId;
+            vm.ImageUrl = productDetails.imageUrl;
         }
     }
 }
