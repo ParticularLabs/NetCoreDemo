@@ -1,4 +1,7 @@
-﻿namespace Sales.Api
+﻿using ITOps.Shared;
+using NServiceBus;
+
+namespace Sales.Api
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -21,6 +24,7 @@
         {
             services.AddDbContext<ProductPriceDbContext>(opt => opt.UseInMemoryDatabase("ProductPriceList"));
             services.AddMvc();
+            BootstrapNServiceBusForMessaging(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +36,19 @@
             }
 
             app.UseMvc();
+        }
+
+        void BootstrapNServiceBusForMessaging(IServiceCollection services)
+        {
+            var endpointConfiguration = new EndpointConfiguration("Sales.Api");
+            endpointConfiguration.ApplyCommonNServiceBusConfiguration(transport =>
+            {
+                var routing = transport.Routing();
+                // Add any routing configuration here, For example:
+                //routing.RouteToEndpoint(typeof(EShop.Messages.Commands.BuyItem).Assembly, "EShop.Messages.Commands", "YourEndpointName");
+            });
+            var instance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            services.AddSingleton<IMessageSession>(instance);
         }
     }
 }

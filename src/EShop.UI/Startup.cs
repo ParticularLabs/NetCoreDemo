@@ -1,10 +1,12 @@
-﻿using ITOps.ViewModelComposition;
+﻿using ITOps.Shared;
+using ITOps.ViewModelComposition;
 using ITOps.ViewModelComposition.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using NServiceBus;
 
-namespace SimpleEShop.UI
+namespace EShop.UI
 {
     public class Startup
     {
@@ -15,6 +17,7 @@ namespace SimpleEShop.UI
             services.AddViewModelComposition();
             services.AddMvc()
                 .AddViewModelCompositionMvcSupport();
+            BootstrapNServiceBusForMessaging(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,6 +36,19 @@ namespace SimpleEShop.UI
             {
                 app.UseDeveloperExceptionPage();
             }
+        }
+
+        void BootstrapNServiceBusForMessaging(IServiceCollection services)
+        {
+            var endpointConfiguration = new EndpointConfiguration("EShop.UI");
+            endpointConfiguration.PurgeOnStartup(true);
+            endpointConfiguration.ApplyCommonNServiceBusConfiguration(transport =>
+            {
+                //var routing = transport.Routing();
+                //routing.RouteToEndpoint(typeof(Store.Messages.Commands.SubmitOrder).Assembly, "Store.Messages.Commands", "Store.Sales");
+            });
+            var instance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            services.AddSingleton<IMessageSession>(instance);
         }
     }
 }

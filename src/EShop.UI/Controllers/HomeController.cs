@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace SimpleEShop.UI.Controllers
+namespace EShop.UI.Controllers
 {
     public class HomeController : Controller
     {

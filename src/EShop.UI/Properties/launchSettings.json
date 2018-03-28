@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "SimpleEShop.UI": {
+    "EShop.UI": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
