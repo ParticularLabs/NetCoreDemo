@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITOps.Shared", "ITOps.Share
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Messages", "EShop.Messages\EShop.Messages.csproj", "{6B50536C-E1DC-4A2E-9553-F61F9CB6673E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billing.Api", "Billing.Api\Billing.Api.csproj", "{71E2DA48-8787-43FA-8D28-B347FE37AD17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,6 +182,18 @@ Global
 		{6B50536C-E1DC-4A2E-9553-F61F9CB6673E}.Release|x64.Build.0 = Release|Any CPU
 		{6B50536C-E1DC-4A2E-9553-F61F9CB6673E}.Release|x86.ActiveCfg = Release|Any CPU
 		{6B50536C-E1DC-4A2E-9553-F61F9CB6673E}.Release|x86.Build.0 = Release|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Debug|x64.Build.0 = Debug|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Debug|x86.Build.0 = Debug|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Release|x64.ActiveCfg = Release|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Release|x64.Build.0 = Release|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Release|x86.ActiveCfg = Release|Any CPU
+		{71E2DA48-8787-43FA-8D28-B347FE37AD17}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
