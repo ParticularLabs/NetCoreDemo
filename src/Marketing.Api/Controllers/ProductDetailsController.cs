@@ -8,11 +8,11 @@ namespace Marketing.Api.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     [Route("product")]
-    public class TodoController : Controller
+    public class ProductDetailsController : Controller
     {
         private readonly ProductDetailsDbContext context;
 
-        public TodoController(ProductDetailsDbContext context)
+        public ProductDetailsController(ProductDetailsDbContext context)
         {
             this.context = context;
 
