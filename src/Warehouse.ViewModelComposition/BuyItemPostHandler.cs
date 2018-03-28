@@ -1,16 +1,19 @@
-﻿using System;
-using EShop.Messages.Commands;
-using ITOps.ViewModelComposition;
-using NServiceBus;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+﻿
 
-namespace Sales.ViewModelComposition
+namespace Warehouse.ViewModelComposition
 {
-    public class BuyItemPostHandler : IHandleRequests
+    using System;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Routing;
+    using NServiceBus;
+    using ITOps.ViewModelComposition;
+    using EShop.Messages.Commands;
+
+    class BuyItemPostHandler : IHandleRequests
     {
         private IMessageSession session;
+
         public BuyItemPostHandler(IMessageSession messageSession)
         {
             session = messageSession;
@@ -31,7 +34,7 @@ namespace Sales.ViewModelComposition
         public async Task Handle(dynamic vm, RouteData routeData, HttpRequest request)
         {
             var productId = (string)routeData.Values["id"];
-            await session.Send("Sales.Api", new PlaceOrder { ProductId = Int32.Parse(productId) });
+            await session.Send("Warehouse.Api", new PrepareInventory { ProductId = Int32.Parse(productId) });
         }
     }
 }

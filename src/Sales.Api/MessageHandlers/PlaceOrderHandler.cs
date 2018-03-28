@@ -4,9 +4,9 @@
     using EShop.Messages.Commands;
     using NServiceBus;
 
-    public class BuyItemHandler : IHandleMessages<BuyItem>
+    public class PlaceOrderHandler : IHandleMessages<PlaceOrder>
     {
-        public Task Handle(BuyItem message, IMessageHandlerContext context)
+        public Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
             // Do something meaningful
             return Task.CompletedTask;

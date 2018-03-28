@@ -45,7 +45,7 @@ namespace Sales.Api
             {
                 var routing = transport.Routing();
                 // Add any routing configuration here, For example:
-                //routing.RouteToEndpoint(typeof(EShop.Messages.Commands.BuyItem).Assembly, "EShop.Messages.Commands", "YourEndpointName");
+                //routing.RouteToEndpoint(typeof(EShop.Messages.Commands.PlaceOrder).Assembly, "EShop.Messages.Commands", "YourEndpointName");
             });
             var instance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
             services.AddSingleton<IMessageSession>(instance);
