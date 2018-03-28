@@ -1,4 +1,7 @@
-﻿namespace Sales.Api.MessageHandlers
+﻿using System;
+using EShop.Messages.Events;
+
+namespace Sales.Api.MessageHandlers
 {
     using System.Threading.Tasks;
     using EShop.Messages.Commands;
@@ -6,10 +9,11 @@
 
     public class PlaceOrderHandler : IHandleMessages<PlaceOrder>
     {
-        public Task Handle(PlaceOrder message, IMessageHandlerContext context)
+        public async Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
             // Do something meaningful
-            return Task.CompletedTask;
+            Console.WriteLine("Order has been received. Do something meaningful");
+            await context.Publish(new OrderPlaced() {ProductId = message.ProductId});
         }
     }
 }
