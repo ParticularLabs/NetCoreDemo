@@ -1,5 +1,5 @@
 # Auto detect text files and perform CRLF normalization
-* text=auto eol=crlf
+* text=auto
 
 # Standard to msysgit
 *.doc	diff=astextplain
