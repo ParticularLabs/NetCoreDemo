@@ -1,7 +1,4 @@
-﻿using ITOps.Shared;
-using NServiceBus;
-
-namespace Sales.Api
+﻿namespace Sales.Api
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -9,6 +6,8 @@ namespace Sales.Api
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Sales.Api.Data;
+    using ITOps.Shared;
+    using NServiceBus;
 
     public class Startup
     {

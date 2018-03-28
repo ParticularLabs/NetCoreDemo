@@ -12,7 +12,7 @@ namespace Sales.Api.MessageHandlers
         public async Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
             // Do something meaningful
-            Console.WriteLine("Order has been received. Do something meaningful");
+            Console.WriteLine("A new order has been received. Do something meaningful");
             await context.Publish(new OrderPlaced() {ProductId = message.ProductId});
         }
     }
