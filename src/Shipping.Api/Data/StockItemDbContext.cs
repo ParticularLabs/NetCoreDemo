@@ -1,9 +1,9 @@
 ﻿
-namespace Warehouse.Api.Data
-{
-    using Microsoft.EntityFrameworkCore;
-    using Warehouse.Api.Models;
+using Microsoft.EntityFrameworkCore;
+using Shipping.Api.Models;
 
+namespace Shipping.Api.Data
+{
     public class StockItemDbContext : DbContext
     {
         public StockItemDbContext(DbContextOptions<StockItemDbContext> stockItem)

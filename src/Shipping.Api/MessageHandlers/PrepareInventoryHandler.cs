@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using EShop.Messages.Commands;
+using NServiceBus;
 
-namespace Warehouse.Api.MessageHandlers
+namespace Shipping.Api.MessageHandlers
 {
-    using System;
-    using EShop.Messages.Commands;
-    using NServiceBus;
     public class PrepareInventoryHandler : IHandleMessages<PrepareInventory>
     {
         public Task Handle(PrepareInventory message, IMessageHandlerContext context)

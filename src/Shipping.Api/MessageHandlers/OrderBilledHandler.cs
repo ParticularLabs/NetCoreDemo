@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using EShop.Messages.Events;
+using NServiceBus;
 
-namespace Warehouse.Api.MessageHandlers
+namespace Shipping.Api.MessageHandlers
 {
-    using System;
-    using NServiceBus;
-    using EShop.Messages.Events;
     class OrderBilledHandler : IHandleMessages<OrderBilled>
     {
         public Task Handle(OrderBilled message, IMessageHandlerContext context)

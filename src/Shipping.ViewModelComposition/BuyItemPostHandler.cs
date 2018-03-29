@@ -1,15 +1,15 @@
 ﻿
 
-namespace Warehouse.ViewModelComposition
-{
-    using System;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Routing;
-    using NServiceBus;
-    using ITOps.ViewModelComposition;
-    using EShop.Messages.Commands;
+using System;
+using System.Threading.Tasks;
+using EShop.Messages.Commands;
+using ITOps.ViewModelComposition;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using NServiceBus;
 
+namespace Shipping.ViewModelComposition
+{
     class BuyItemPostHandler : IHandleRequests
     {
         private IMessageSession session;

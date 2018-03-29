@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ITOps.Shared;
+﻿using ITOps.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using NServiceBus;
-using Warehouse.Api.Data;
+using Shipping.Api.Data;
 
-namespace Warehouse.Api
+namespace Shipping.Api
 {
     public class Startup
     {
@@ -45,7 +39,7 @@ namespace Warehouse.Api
 
         void BootstrapNServiceBusForMessaging(IServiceCollection services)
         {
-            var endpointConfiguration = new EndpointConfiguration("Warehouse.Api");
+            var endpointConfiguration = new EndpointConfiguration("Shipping.Api");
             endpointConfiguration.ApplyCommonNServiceBusConfiguration(transport =>
             {
                 var routing = transport.Routing();

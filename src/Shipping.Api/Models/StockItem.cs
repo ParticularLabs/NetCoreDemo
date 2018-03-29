@@ -1,4 +1,4 @@
-﻿namespace Warehouse.Api.Models
+﻿namespace Shipping.Api.Models
 {
     public class StockItem
     {

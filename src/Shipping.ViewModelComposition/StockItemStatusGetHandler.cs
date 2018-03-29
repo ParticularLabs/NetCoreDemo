@@ -1,11 +1,11 @@
-﻿using ITOps.ViewModelComposition;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using ITOps.ViewModelComposition;
 using ITOps.ViewModelComposition.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using System.Net.Http;
-using System.Threading.Tasks;
 
-namespace Warehouse.ViewModelComposition
+namespace Shipping.ViewModelComposition
 {
     public class StockItemStatusGetHandler : IHandleRequests
     {

@@ -1,10 +1,10 @@
-﻿namespace Warehouse.Api.Controllers
-{
-    using Microsoft.AspNetCore.Mvc;
-    using Warehouse.Api.Models;
-    using System.Linq;
-    using Warehouse.Api.Data;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Shipping.Api.Data;
+using Shipping.Api.Models;
 
+namespace Shipping.Api.Controllers
+{
     [Route("product")]
     public class StockItemsStatusController : Controller
     {
