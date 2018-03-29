@@ -143,6 +143,7 @@ DocProject/Help/html
 
 # Click-Once directory
 publish/
+src/.learningtransport
 
 # Publish Web Output
 *.[Pp]ublish.xml
