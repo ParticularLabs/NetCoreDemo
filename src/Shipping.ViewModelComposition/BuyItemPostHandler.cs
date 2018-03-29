@@ -34,7 +34,7 @@ namespace Shipping.ViewModelComposition
         public async Task Handle(dynamic vm, RouteData routeData, HttpRequest request)
         {
             var productId = (string)routeData.Values["id"];
-            await session.Send("Warehouse.Api", new PrepareInventory { ProductId = Int32.Parse(productId) });
+            await session.Send(new PrepareInventory { ProductId = Int32.Parse(productId) });
         }
     }
 }

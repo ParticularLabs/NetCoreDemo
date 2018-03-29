@@ -11,4 +11,8 @@
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.1.0-beta0001" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EShop.Messages\EShop.Messages.csproj" />
+  </ItemGroup>
+
 </Project>

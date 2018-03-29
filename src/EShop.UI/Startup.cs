@@ -42,11 +42,7 @@ namespace EShop.UI
         {
             var endpointConfiguration = new EndpointConfiguration("EShop.UI");
             endpointConfiguration.PurgeOnStartup(true);
-            endpointConfiguration.ApplyCommonNServiceBusConfiguration(transport =>
-            {
-                //var routing = transport.Routing();
-                //routing.RouteToEndpoint(typeof(Store.Messages.Commands.SubmitOrder).Assembly, "Store.Messages.Commands", "Store.Sales");
-            });
+            endpointConfiguration.ApplyCommonNServiceBusConfiguration();
             var instance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
             services.AddSingleton<IMessageSession>(instance);
         }

@@ -37,12 +37,7 @@
         void BootstrapNServiceBusForMessaging(IServiceCollection services)
         {
             var endpointConfiguration = new EndpointConfiguration("Billing.Api");
-            endpointConfiguration.ApplyCommonNServiceBusConfiguration(transport =>
-            {
-                var routing = transport.Routing();
-                // Add any routing configuration here, For example:
-                //routing.RouteToEndpoint(typeof(EShop.Messages.Commands.PlaceOrder).Assembly, "EShop.Messages.Commands", "YourEndpointName");
-            });
+            endpointConfiguration.ApplyCommonNServiceBusConfiguration();
             var instance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
             services.AddSingleton<IMessageSession>(instance);
         }

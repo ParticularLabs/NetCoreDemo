@@ -31,7 +31,7 @@ namespace Sales.ViewModelComposition
         public async Task Handle(dynamic vm, RouteData routeData, HttpRequest request)
         {
             var productId = (string)routeData.Values["id"];
-            await session.Send("Sales.Api", new PlaceOrder { ProductId = Int32.Parse(productId) });
+            await session.Send(new PlaceOrder { ProductId = Int32.Parse(productId) });
         }
     }
 }
