@@ -12,6 +12,15 @@ namespace ITOps.Shared
             messageEndpointMappings?.Invoke(transport);
             endpointConfiguration.UsePersistence<LearningPersistence>();
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+
+            // Enable Metrics Collection and Reporting
+            endpointConfiguration
+                .EnableMetrics()
+                .SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromSeconds(5), "BillingInstance1");
+
+            // Enable endpoint hearbeat reporting
+            endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl", TimeSpan.FromSeconds(30));
+
         }
     }
 }
