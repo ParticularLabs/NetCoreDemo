@@ -1,7 +1,7 @@
 ﻿namespace EShop.Messages.Commands
 {
     using NServiceBus;
-    public class PrepareInventory : ICommand
+    public class RecordConsumerBehavior : ICommand
     {
         public int ProductId { get; set; }
     }

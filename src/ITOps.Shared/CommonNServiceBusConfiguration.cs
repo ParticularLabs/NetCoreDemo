@@ -17,8 +17,8 @@ namespace ITOps.Shared
             //routing.RegisterPublisher(typeof(EShop.Messages.Events.OrderBilled), "Billing.Api");
             //routing.RegisterPublisher(typeof(EShop.Messages.Events.OrderPlaced), "Sales.Api");
             routing.RouteToEndpoint(typeof(EShop.Messages.Commands.PlaceOrder), "Sales.Api");
-            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.PrepareInventory), "Warehouse.Api");
-            
+            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.RecordConsumerBehavior), "Marketing.Api");
+
             // Persistence Configuration
             endpointConfiguration.UsePersistence<LearningPersistence>();
             
