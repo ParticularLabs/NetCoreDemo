@@ -13,5 +13,5 @@ dotnet publish src
 publish_app Marketing.Api
 publish_app Sales.Api
 publish_app Shipping.Api
-publish_app Warehouse.Api
+publish_app Billing.Api
 publish_app EShop.UI
