@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
 AWS_SERVER=$1
-PUBLISH_PATH=bin/Debug/netcoreapp2.0/publish
+PUBLISH_PATH=bin/Debug/netcoreapp2.0/publish/*
 
 function publish_app () {
     echo "-- Publishing app '$1' -----"
+    ssh ubuntu@$AWS_SERVER.compute-1.amazonaws.com "mkdir -p ~/$1"
     scp -r src/$1/$PUBLISH_PATH ubuntu@$AWS_SERVER.compute-1.amazonaws.com:~/$1
 }
 
