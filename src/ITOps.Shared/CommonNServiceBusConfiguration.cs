@@ -10,8 +10,7 @@ namespace ITOps.Shared
         {
 
             // Transport configuration
-            var rabbitMqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoRabbitMQTransport", EnvironmentVariableTarget.User);
-
+            var rabbitMqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoRabbitMQTransport");
 
             if (String.IsNullOrEmpty(rabbitMqConnectionString))
             {
