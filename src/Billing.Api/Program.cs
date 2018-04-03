@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -14,12 +15,21 @@ namespace Billing.Api
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
-        }
+            var basePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            var config = new ConfigurationBuilder()
+                .SetBasePath(basePath)
+                .Build();
+
+            var host = new WebHostBuilder()
+                .UseKestrel()
+                .UseUrls("http://localhost:63874")
+                .UseContentRoot(basePath)
+                .UseConfiguration(config)
                 .UseStartup<Startup>()
                 .Build();
+
+            host.Run();
+        }
     }
 }
