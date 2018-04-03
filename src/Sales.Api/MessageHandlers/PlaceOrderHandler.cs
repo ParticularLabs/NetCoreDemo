@@ -1,5 +1,6 @@
 ﻿using System;
 using EShop.Messages.Events;
+using NServiceBus.Logging;
 
 namespace Sales.Api.MessageHandlers
 {
@@ -9,10 +10,11 @@ namespace Sales.Api.MessageHandlers
 
     public class PlaceOrderHandler : IHandleMessages<PlaceOrder>
     {
+        static ILog log = LogManager.GetLogger<PlaceOrderHandler>();
         public async Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
             // Do something meaningful
-            Console.WriteLine("A new order has been received. Do something meaningful");
+            log.Info("A new order has been received. Do something meaningful");
             await context.Publish(new OrderPlaced() {ProductId = message.ProductId});
         }
     }

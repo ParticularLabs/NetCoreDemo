@@ -1,5 +1,6 @@
 ﻿using System;
 using NServiceBus;
+using NServiceBus.Transport;
 
 namespace ITOps.Shared
 {
@@ -9,18 +10,29 @@ namespace ITOps.Shared
         {
 
             // Transport configuration
-            var transport = endpointConfiguration.UseTransport<LearningTransport>();
+            var rabbitMqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoRabbitMQTransport", EnvironmentVariableTarget.User);
 
-            // Routing configuration 
-            // Call RegisterPublisher when using a message based subscription such as MSMQ or SQLServer transport
-            var routing = transport.Routing();
-            //routing.RegisterPublisher(typeof(EShop.Messages.Events.OrderBilled), "Billing.Api");
-            //routing.RegisterPublisher(typeof(EShop.Messages.Events.OrderPlaced), "Sales.Api");
-            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.PlaceOrder), "Sales.Api");
-            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.RecordConsumerBehavior), "Marketing.Api");
 
-            // Persistence Configuration
-            endpointConfiguration.UsePersistence<LearningPersistence>();
+            if (String.IsNullOrEmpty(rabbitMqConnectionString))
+            {
+                var transport = endpointConfiguration.UseTransport<LearningTransport>();
+                ConfigureRouting(transport);
+                // Persistence Configuration
+                endpointConfiguration.UsePersistence<InMemoryPersistence>();
+            }
+            else
+            {
+                var transport = endpointConfiguration.UseTransport<RabbitMQTransport>()
+                    .ConnectionString(rabbitMqConnectionString)
+                    .UseConventionalRoutingTopology();
+                ConfigureRouting(transport);
+                // Persistence Configuration
+                endpointConfiguration.UsePersistence<LearningPersistence>();
+            }
+            
+            endpointConfiguration.EnableInstallers();
+
+            
             
             // JSon Serializer
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
@@ -33,6 +45,16 @@ namespace ITOps.Shared
             // Enable endpoint hearbeat reporting
             endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl", TimeSpan.FromSeconds(30));
 
+        }
+
+        static void ConfigureRouting<T>(TransportExtensions<T> transport) 
+            where T : TransportDefinition
+        {
+            var routing = transport.Routing();
+            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.PlaceOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.RecordConsumerBehavior), "Marketing.Api");
+
+            // For transports that do not support publish/subcribe natively, e.g. MSMQ, SqlTransport, call RegisterPublisher
         }
     }
 }

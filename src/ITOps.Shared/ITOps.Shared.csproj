@@ -9,6 +9,7 @@
     <PackageReference Include="NServiceBus.Heartbeat" Version="3.0.0-rc0001" />
     <PackageReference Include="NServiceBus.Metrics.ServiceControl" Version="3.0.0-beta0004" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.1.0-beta0001" />
+    <PackageReference Include="NServiceBus.RabbitMQ" Version="5.0.0-rc0001" />
   </ItemGroup>
 
   <ItemGroup>
