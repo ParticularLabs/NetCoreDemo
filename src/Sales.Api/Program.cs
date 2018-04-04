@@ -15,7 +15,7 @@ namespace Sales.Api
     {
         public static void Main(string[] args)
         {
-            var basePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var basePath = Directory.GetCurrentDirectory();
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(basePath)

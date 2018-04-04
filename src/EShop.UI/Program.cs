@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +11,7 @@ namespace EShop.UI
     {
         public static void Main(string[] args)
         {
-            var basePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var basePath = Directory.GetCurrentDirectory();
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(basePath)
