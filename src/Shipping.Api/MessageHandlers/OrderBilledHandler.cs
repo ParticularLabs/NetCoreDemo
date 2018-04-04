@@ -11,7 +11,7 @@ namespace Shipping.Api.MessageHandlers
         static ILog log = LogManager.GetLogger<OrderBilledHandler>();
         public Task Handle(OrderBilled message, IMessageHandlerContext context)
         {
-            log.Info("Payment has been received. Ready to ship.");
+            log.Info("Payment has been received. Shipping.");
             return Task.CompletedTask;
         }
     }
