@@ -10,10 +10,14 @@ namespace Shipping.Api.MessageHandlers
     public class OrderPlacedHandler : IHandleMessages<OrderPlaced>
     {
         static ILog log = LogManager.GetLogger<OrderPlacedHandler>();
-        public Task Handle(OrderPlaced message, IMessageHandlerContext context)
+        static Random random = new Random();
+        
+        public async Task Handle(OrderPlaced message, IMessageHandlerContext context)
         {
+            // Simulate some work
+            await Task.Delay(random.Next(250, 750));
+
             log.Info("A new order has been placed, preparing the inventory and waiting for the payment");
-            return Task.CompletedTask;
         }
     }
 }

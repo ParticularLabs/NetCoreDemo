@@ -11,9 +11,13 @@ namespace Sales.Api.MessageHandlers
     public class PlaceOrderHandler : IHandleMessages<PlaceOrder>
     {
         static ILog log = LogManager.GetLogger<PlaceOrderHandler>();
+        static Random random = new Random();
+
         public async Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
-            // Do something meaningful
+            // Simulate some work
+            await Task.Delay(random.Next(250, 750));
+
             log.Info("A new order has been received. Do something meaningful");
             await context.Publish(new OrderPlaced() {ProductId = message.ProductId});
         }

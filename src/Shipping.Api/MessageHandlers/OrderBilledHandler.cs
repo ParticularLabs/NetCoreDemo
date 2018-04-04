@@ -9,10 +9,14 @@ namespace Shipping.Api.MessageHandlers
     class OrderBilledHandler : IHandleMessages<OrderBilled>
     {
         static ILog log = LogManager.GetLogger<OrderBilledHandler>();
-        public Task Handle(OrderBilled message, IMessageHandlerContext context)
+        static Random random = new Random();
+        
+        public async Task Handle(OrderBilled message, IMessageHandlerContext context)
         {
+            // Simulate some work
+            await Task.Delay(random.Next(250, 750));
+
             log.Info("Payment has been received. Shipping.");
-            return Task.CompletedTask;
         }
     }
 }

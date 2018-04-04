@@ -21,16 +21,10 @@
 
             while (true)
             {
-                var tasks = new List<Task>();
-                for (var i = 0; i < 100; i++)
-                {
-                    tasks.Add(endpoint.Send(new PlaceOrder { ProductId = 1 }));
-                }
-
-                await Task.WhenAll(tasks)
+                await endpoint.Send(new PlaceOrder { ProductId = 1 })
                     .ConfigureAwait(false);
-
-                await Task.Delay(TimeSpan.FromMilliseconds(100))
+                
+                await Task.Delay(200)
                     .ConfigureAwait(false);
             }
 

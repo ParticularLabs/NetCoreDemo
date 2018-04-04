@@ -10,10 +10,14 @@ namespace Marketing.Api.MessageHandlers
     public class RecordConsumerBehaviorHandler : IHandleMessages<RecordConsumerBehavior>
     {
         static ILog log = LogManager.GetLogger<RecordConsumerBehaviorHandler>();
-        public Task Handle(RecordConsumerBehavior message, IMessageHandlerContext context)
+        static Random random = new Random();
+
+        public async Task Handle(RecordConsumerBehavior message, IMessageHandlerContext context)
         {
+            // Simulate some work
+            await Task.Delay(random.Next(250, 750));
+
             log.Info("Perform marketing campaign.");
-            return Task.CompletedTask;
         }
     }
 }
