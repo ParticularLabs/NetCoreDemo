@@ -4,6 +4,11 @@ namespace EShop.UI.Controllers
 {
     public class ProductsController : Controller
     {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         public IActionResult Details(int id)
         {
             return View();
