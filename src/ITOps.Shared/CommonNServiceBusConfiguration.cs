@@ -1,11 +1,14 @@
 ﻿using System;
 using NServiceBus;
+using NServiceBus.Logging;
 using NServiceBus.Transport;
 
 namespace ITOps.Shared
 {
     public static class CommonNServiceBusConfiguration
     {
+        static ILog log = LogManager.GetLogger(typeof (CommonNServiceBusConfiguration));
+
         public static void ApplyCommonNServiceBusConfiguration(this EndpointConfiguration endpointConfiguration, bool enableMonitoring = true)
         {
 
@@ -14,6 +17,7 @@ namespace ITOps.Shared
 
             if (String.IsNullOrEmpty(rabbitMqConnectionString))
             {
+                log.Info("Using Learning Transport");
                 var transport = endpointConfiguration.UseTransport<LearningTransport>();
                 ConfigureRouting(transport);
                 // Persistence Configuration
@@ -21,6 +25,7 @@ namespace ITOps.Shared
             }
             else
             {
+                log.Info("Using RabbitMQ Transport");
                 var transport = endpointConfiguration.UseTransport<RabbitMQTransport>()
                     .ConnectionString(rabbitMqConnectionString)
                     .UseConventionalRoutingTopology();
