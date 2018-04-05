@@ -22,6 +22,7 @@
             Console.WriteLine("Press up/down arrow to increase/decrease messages per second");
             Console.WriteLine("Press ESC key to exit");
             var messagesPerSecond = 1;
+            var currentOrderId = 0;
 
             while (true)
             {
@@ -43,8 +44,15 @@
 
                 }
                 var delay = 1000 / messagesPerSecond;
-                Console.WriteLine("Sending PlaceOrder message for ProductId = 1");
-                await endpoint.Send(new PlaceOrder { ProductId = 1 })
+
+                var orderId = ++currentOrderId;
+                var productId = orderId % 3 + 1;
+                Console.WriteLine($"Sending PlaceOrder message: OrderId 'LoadGen-{orderId}', ProductId = {productId}");
+                await endpoint.Send(new PlaceOrder
+                    {
+                        OrderId = "LoadGen-" + orderId,
+                        ProductId = productId
+                    })
                     .ConfigureAwait(false);
 
 

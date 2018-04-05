@@ -17,8 +17,13 @@ namespace Billing.Api.MessageHandlers
             // Simulate some work
             await Task.Delay(random.Next(250, 750));
 
-            log.Info("A new order has been placed, make sure the payment goes through.");
-            await context.Publish(new OrderBilled() {ProductId = message.ProductId});
+            log.Info($"Order '{message.OrderId}' has been placed, make sure the payment goes through.");
+
+            await context.Publish(new OrderBilled()
+            {
+                OrderId = message.OrderId,
+                ProductId = message.ProductId
+            });
         }
     }
 }

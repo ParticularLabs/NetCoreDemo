@@ -16,7 +16,7 @@ namespace Shipping.Api.MessageHandlers
             // Simulate some work
             await Task.Delay(random.Next(250, 750));
 
-            log.Info("Payment has been received. Shipping.");
+            log.Info($"Payment has been received for OrderId '{message.OrderId}'. Shipping.");
         }
     }
 }

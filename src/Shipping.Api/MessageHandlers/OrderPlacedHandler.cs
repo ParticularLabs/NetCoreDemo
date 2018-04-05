@@ -15,9 +15,9 @@ namespace Shipping.Api.MessageHandlers
         public async Task Handle(OrderPlaced message, IMessageHandlerContext context)
         {
             // Simulate some work
-            await Task.Delay(random.Next(250, 750));
+            await Task.Delay(random.Next(100, 400));
 
-            log.Info("A new order has been placed, preparing the inventory and waiting for the payment");
+            log.Info($"Order '{message.OrderId}' has been placed, preparing the inventory and waiting for the payment");
         }
     }
 }

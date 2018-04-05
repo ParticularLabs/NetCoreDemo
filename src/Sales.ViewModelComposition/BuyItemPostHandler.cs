@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using EShop.Messages.Commands;
 using ITOps.ViewModelComposition;
 using NServiceBus;
@@ -11,6 +12,8 @@ namespace Sales.ViewModelComposition
     public class BuyItemPostHandler : IHandleRequests
     {
         private IMessageSession session;
+        private static int orderIdCounter;
+
         public BuyItemPostHandler(IMessageSession messageSession)
         {
             session = messageSession;
@@ -31,7 +34,13 @@ namespace Sales.ViewModelComposition
         public async Task Handle(dynamic vm, RouteData routeData, HttpRequest request)
         {
             var productId = (string)routeData.Values["id"];
-            await session.Send(new PlaceOrder { ProductId = Int32.Parse(productId) });
+            var orderId = Interlocked.Increment(ref orderIdCounter);
+
+            await session.Send(new PlaceOrder
+            {
+                OrderId = "EShop-" + orderId,
+                ProductId = Int32.Parse(productId)
+            });
         }
     }
 }

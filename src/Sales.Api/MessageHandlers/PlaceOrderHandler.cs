@@ -18,8 +18,12 @@ namespace Sales.Api.MessageHandlers
             // Simulate some work
             await Task.Delay(random.Next(250, 750));
 
-            log.Info("A new order has been received. Do something meaningful");
-            await context.Publish(new OrderPlaced() {ProductId = message.ProductId});
+            log.Info($"PlaceOrder '{message.OrderId}' has been received. Do something meaningful");
+            await context.Publish(new OrderPlaced()
+            {
+                OrderId = message.OrderId,
+                ProductId = message.ProductId
+            });
         }
     }
 }
