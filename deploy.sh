@@ -11,6 +11,8 @@ function publish_app () {
 
 dotnet publish src
 
+scp -r scripts/* ubuntu@$AWS_SERVER.compute-1.amazonaws.com:~
+
 publish_app Marketing.Api
 publish_app Sales.Api
 publish_app Shipping.Api
