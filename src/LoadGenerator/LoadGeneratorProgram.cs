@@ -13,7 +13,8 @@
             Console.Title = "Load Generator";
             
             var endpointConfiguration = new EndpointConfiguration("LoadGenerator");
-            endpointConfiguration.ApplyCommonNServiceBusConfiguration();
+            endpointConfiguration.ApplyCommonNServiceBusConfiguration(enableMonitoring: false);
+            endpointConfiguration.SendOnly();
 
             var endpoint = await Endpoint.Start(endpointConfiguration)
                 .ConfigureAwait(false);

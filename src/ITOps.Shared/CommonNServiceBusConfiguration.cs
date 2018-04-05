@@ -6,7 +6,7 @@ namespace ITOps.Shared
 {
     public static class CommonNServiceBusConfiguration
     {
-        public static void ApplyCommonNServiceBusConfiguration(this EndpointConfiguration endpointConfiguration)
+        public static void ApplyCommonNServiceBusConfiguration(this EndpointConfiguration endpointConfiguration, bool enableMonitoring = true)
         {
 
             // Transport configuration
@@ -31,19 +31,19 @@ namespace ITOps.Shared
             
             endpointConfiguration.EnableInstallers();
 
-            
-            
-            // JSon Serializer
+            // JSON Serializer
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
-            
-            // Enable Metrics Collection and Reporting
-            endpointConfiguration
-                .EnableMetrics()
-                .SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromSeconds(5));
 
-            // Enable endpoint hearbeat reporting
-            endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl", TimeSpan.FromSeconds(30));
+            if(enableMonitoring)
+            {
+                // Enable Metrics Collection and Reporting
+                endpointConfiguration
+                    .EnableMetrics()
+                    .SendMetricDataToServiceControl("Particular.Monitoring", TimeSpan.FromSeconds(5));
 
+                // Enable endpoint hearbeat reporting
+                endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl", TimeSpan.FromSeconds(30));
+            }
         }
 
         static void ConfigureRouting<T>(TransportExtensions<T> transport) 
