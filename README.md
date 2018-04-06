@@ -64,8 +64,10 @@ Install ServiceControl using the [Platform Installer](https://docs.particular.ne
 
 #### Add a ServiceControl instance
 
-Start the ServiceControl Management utility, then click _+ NEW | Add ServiceControl Instance..._. The defaults can be used for all sections except TRANSPORT CONFIGURATION and QUEUES CONFIGURATION. Configure the transport as follows:
+Start the ServiceControl Management utility, then click _+ NEW -> Add ServiceControl Instance..._. The defaults can be used for all sections except TRANSPORT CONFIGURATION and QUEUES CONFIGURATION. Configure the transport as follows:
 
+| Setting | Value |
+|---|---|
 | TRANSPORT | RabbitMQ |
 | TRANSPORT CONNECTION STRING | host=localhost |
 
@@ -75,7 +77,7 @@ In the QUEUES CONFIGURATION section, set both _error forwarding_ and _audit forw
 
 #### Add a monitoring instance
 
-In the ServiceControl Management utility, click _+ NEW  | Add monitoring instance..._. Configure the transport in the same way as the ServiceControl instance and leave the rest with default values.
+In the ServiceControl Management utility, click _+ NEW -> Add monitoring instance..._. Configure the transport in the same way as the ServiceControl instance and leave the rest with default values.
 
 ### Set up ServicePulse
 
@@ -88,7 +90,7 @@ Install ServicePulse using the [Platform Installer](https://docs.particular.net/
 3. In a browser, navigate to ServicePulse at http://localhost:9090
 4. Select _Monitoring_ in the menu bar to see statistics for the four endpoints
 
-At this point, you can increase or decrease the load in the LoadGenerator console application with the up and down arrow keys. You can also press <kbd>S</kbd> to send a spike of 25 messages or press <kbd>P</kbd> to pause/unpause the load generator. It's useful to have this running side-by-side with ServicePulse to see the effects this has on the graphs.
+At this point, you can increase or decrease the load in the LoadGenerator console application with the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrow keys. You can also press <kbd>S</kbd> to send a spike of 25 messages or press <kbd>P</kbd> to pause/unpause the load generator. It's useful to have this running side-by-side with ServicePulse to see the effects this has on the graphs.
 
 ## Deploying the application to Linux
 
