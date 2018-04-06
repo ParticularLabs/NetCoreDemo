@@ -16,7 +16,7 @@ namespace Sales.Api.MessageHandlers
         public async Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
             // Simulate some work
-            await Task.Delay(random.Next(250, 750));
+            await Task.Delay(random.Next(25, 50));
 
             log.Info($"PlaceOrder '{message.OrderId}' has been received. Do something meaningful");
             await context.Publish(new OrderPlaced()

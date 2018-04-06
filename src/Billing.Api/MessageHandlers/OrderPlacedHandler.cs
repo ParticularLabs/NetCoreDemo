@@ -15,15 +15,22 @@ namespace Billing.Api.MessageHandlers
         public async Task Handle(OrderPlaced message, IMessageHandlerContext context)
         {
             // Simulate some work
-            await Task.Delay(random.Next(250, 750));
+            await Task.Delay(random.Next(25, 50));
 
             log.Info($"Order '{message.OrderId}' has been placed, make sure the payment goes through.");
+
+            await ThisIsntGoingToScaleWell();
 
             await context.Publish(new OrderBilled()
             {
                 OrderId = message.OrderId,
                 ProductId = message.ProductId
             });
+        }
+
+        private Task ThisIsntGoingToScaleWell()
+        {
+            return Task.Delay(random.Next(250, 350));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Marketing.Api.MessageHandlers
         public async Task Handle(RecordConsumerBehavior message, IMessageHandlerContext context)
         {
             // Simulate some work
-            await Task.Delay(random.Next(250, 750));
+            await Task.Delay(random.Next(25, 50));
 
             log.Info("Perform marketing campaign.");
         }
