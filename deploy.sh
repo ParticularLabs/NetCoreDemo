@@ -11,6 +11,12 @@ function publish_app () {
 
 dotnet publish src
 
+if [ $? -ne 0 ]
+then
+    echo "dotnet publish failed, cannot deploy" >&2
+    exit 1
+fi
+
 scp -r scripts/* ubuntu@$DEPLOY_SERVER:~
 
 publish_app Marketing.Api
