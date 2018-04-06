@@ -18,11 +18,11 @@ By default, the solution uses the [learning transport](https://docs.particular.n
 
 1. Open the solution in Visual Studio
 1. Set the following projects as Startup projects
-  * EShop.UI
-  * Billing.Api
-  * Marketing.Api
-  * Sales.Api
-  * Shipping.Api
+   * EShop.UI
+   * Billing.Api
+   * Marketing.Api
+   * Sales.Api
+   * Shipping.Api
 1. Start the application
 
 Four console windows will open, one for each endpoint. (If running on Mac, the console windows will be docked within  Visual Studio itself.) The EShop.UI web application will also appear in the default browser:
