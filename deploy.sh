@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
-AWS_SERVER=$1
+DEPLOY_SERVER=netcoredemo.particular.net
 PUBLISH_PATH=bin/Debug/netcoreapp2.0/publish/*
 
 function publish_app () {
     echo "-- Publishing app '$1' -----"
-    ssh ubuntu@$AWS_SERVER.compute-1.amazonaws.com "mkdir -p ~/$1"
-    scp -r src/$1/$PUBLISH_PATH ubuntu@$AWS_SERVER.compute-1.amazonaws.com:~/$1
+    ssh ubuntu@$DEPLOY_SERVER "mkdir -p ~/$1"
+    scp -r src/$1/$PUBLISH_PATH ubuntu@$DEPLOY_SERVER:~/$1
 }
 
 dotnet publish src
 
-scp -r scripts/* ubuntu@$AWS_SERVER.compute-1.amazonaws.com:~
+scp -r scripts/* ubuntu@$DEPLOY_SERVER:~
 
 publish_app Marketing.Api
 publish_app Sales.Api
