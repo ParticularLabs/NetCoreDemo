@@ -21,9 +21,6 @@
             var endpoint = await Endpoint.Start(endpointConfiguration)
                 .ConfigureAwait(false);
 
-
-
-
             Console.WriteLine("Press ▲/▼ arrows to increase/decrease messages per second");
             Console.WriteLine("Press S to cause a spike of 25 messages");
             Console.WriteLine("Press P to pause/unpause message sending");
