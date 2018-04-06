@@ -41,6 +41,8 @@ namespace ITOps.Shared
 
             if(enableMonitoring)
             {
+                endpointConfiguration.AuditProcessedMessagesTo("audit");
+                
                 // Enable Metrics Collection and Reporting
                 endpointConfiguration
                     .EnableMetrics()
