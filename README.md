@@ -90,7 +90,7 @@ Install ServicePulse using the [Platform Installer](https://docs.particular.net/
 3. In a browser, navigate to ServicePulse at http://localhost:9090
 4. Select _Monitoring_ in the menu bar to see statistics for the four endpoints
 
-At this point, you can increase or decrease the load in the LoadGenerator console application with the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrow keys. You can also press <kbd>S</kbd> to send a spike of 25 messages or press <kbd>P</kbd> to pause/unpause the load generator. It's useful to have this running side-by-side with ServicePulse to see the effects this has on the graphs.
+At this point, you can increase or decrease the load in the LoadGenerator console application with the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> keys. You can also press <kbd>S</kbd> to send a spike of 25 messages or press <kbd>P</kbd> to pause/unpause the load generator. It's useful to have this running side-by-side with ServicePulse to see the effects this has on the graphs.
 
 ## Deploying the application to Linux
 
