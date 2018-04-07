@@ -29,7 +29,7 @@ Four console windows will open, one for each endpoint. (If running on Mac, the c
 
 ![EShop](images/HomePage.png)
 
-Purchase one of the products and not the log messages that appear in the various endpoint consoles.
+Purchase one of the products and note the log messages that appear in the various endpoint consoles.
 
 ## Monitoring the endpoints
 
