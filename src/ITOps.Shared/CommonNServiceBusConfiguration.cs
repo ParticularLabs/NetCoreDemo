@@ -21,7 +21,7 @@ namespace ITOps.Shared
                 var transport = endpointConfiguration.UseTransport<LearningTransport>();
                 ConfigureRouting(transport);
                 // Persistence Configuration
-                endpointConfiguration.UsePersistence<InMemoryPersistence>();
+                endpointConfiguration.UsePersistence<LearningPersistence>();
             }
             else
             {
@@ -31,7 +31,7 @@ namespace ITOps.Shared
                     .UseConventionalRoutingTopology();
                 ConfigureRouting(transport);
                 // Persistence Configuration
-                endpointConfiguration.UsePersistence<LearningPersistence>();
+                endpointConfiguration.UsePersistence<InMemoryPersistence>();
             }
             
             endpointConfiguration.EnableInstallers();
