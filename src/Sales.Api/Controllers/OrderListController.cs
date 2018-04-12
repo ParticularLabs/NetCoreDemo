@@ -17,7 +17,7 @@
 
         public IActionResult Get()
         {
-            var item = context.OrderDetails.ToList();
+            var item = context.OrderDetails.OrderByDescending(u => u.OrderPlacedOn).Take(10).ToList();
             return new ObjectResult(item);
         }
     }
