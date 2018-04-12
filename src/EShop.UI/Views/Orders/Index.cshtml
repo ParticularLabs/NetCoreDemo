@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Index</h2>
+
+<div class="container-fluid">
+    @foreach (var order in @Model.Orders)
+    {
+        <form action="/orders/cancelorder/@order.orderId" method="post">
+            <li>@order.orderId</li>
+            <li>@order.productId</li>
+            <li>@order.orderPlacedOn</li>
+            <li>@order.isOrderAccepted</li>
+            @if (!order.isOrderAccepted)
+            {
+                <li><input type="submit" class="btn btn-success" value="Cancel Order"/></li>
+            }
+        </form>
+    }
+</div>

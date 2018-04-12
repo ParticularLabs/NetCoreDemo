@@ -8,9 +8,9 @@
     [Route("product")]
     public class ProductPriceController : Controller
     {
-        private readonly ProductPriceDbContext context;
+        private readonly SalesDbContext context;
 
-        public ProductPriceController(ProductPriceDbContext context)
+        public ProductPriceController(SalesDbContext context)
         {
             this.context = context;
 

@@ -1,4 +1,8 @@
-﻿namespace Sales.Api
+﻿using System;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+
+namespace Sales.Api
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -19,11 +23,25 @@
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProductPriceDbContext>(opt => opt.UseInMemoryDatabase("ProductPriceList"));
+            // We are sharing the same container between MVC Core and NServiceBus endpoint.
+            services.AddDbContext<SalesDbContext>(opt => opt.UseInMemoryDatabase("ProductPriceList"));
             services.AddMvc();
-            BootstrapNServiceBusForMessaging(services);
+
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+
+            // Register a place holder instance in the Asp.net core container, so when the container is built, it will
+            // have the correct reference to IMessageSession.
+            IMessageSession endpoint = null;
+            builder.Register(c => endpoint)
+                .As<IMessageSession>()
+                .SingleInstance();
+
+            var container = builder.Build();
+            endpoint = BootstrapNServiceBusForMessaging(container);
+            return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,12 +55,16 @@
             app.UseMvc();
         }
 
-        void BootstrapNServiceBusForMessaging(IServiceCollection services)
+        IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
         {
             var endpointConfiguration = new EndpointConfiguration("Sales.Api");
             endpointConfiguration.ApplyCommonNServiceBusConfiguration();
-            var instance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
-            services.AddSingleton<IMessageSession>(instance);
+            endpointConfiguration.UseContainer<AutofacBuilder>(
+                customizations: customizations =>
+                {
+                    customizations.ExistingLifetimeScope(container);
+                });
+            return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
     }
 }
