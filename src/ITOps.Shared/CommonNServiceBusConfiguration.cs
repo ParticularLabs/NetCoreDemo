@@ -38,8 +38,8 @@ namespace ITOps.Shared
 
             // JSON Serializer
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
-
-            if(enableMonitoring)
+            
+            if (enableMonitoring)
             {
                 endpointConfiguration.AuditProcessedMessagesTo("audit");
                 
@@ -58,6 +58,9 @@ namespace ITOps.Shared
         {
             var routing = transport.Routing();
             routing.RouteToEndpoint(typeof(EShop.Messages.Commands.PlaceOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.CancelOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.StoreOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.AcceptOrder), "Sales.Api");
             routing.RouteToEndpoint(typeof(EShop.Messages.Commands.RecordConsumerBehavior), "Marketing.Api");
 
             // For transports that do not support publish/subcribe natively, e.g. MSMQ, SqlTransport, call RegisterPublisher
