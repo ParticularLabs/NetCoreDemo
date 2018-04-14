@@ -22,11 +22,11 @@ namespace ITOps.ViewModelComposition.Mvc
         {
             (var viewModel, var statusCode) = await CompositionHandler.HandleRequest(context.HttpContext);
             
-            defaultHandler();
+            DefaultHandler();
             
             await next();
 
-            void defaultHandler()
+            void DefaultHandler()
             {
                 if (context.Result is ViewResult viewResult && viewResult.ViewData.Model == null)
                 {
