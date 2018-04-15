@@ -7,17 +7,17 @@ namespace Billing.Api.MessageHandlers
     using NServiceBus;
     using EShop.Messages.Events;
     
-    public class OrderPlacedHandler : IHandleMessages<OrderPlaced>
+    public class OrderAcceptedHandler : IHandleMessages<OrderAccepted>
     {
-        static ILog log = LogManager.GetLogger<OrderPlacedHandler>();
+        static ILog log = LogManager.GetLogger<OrderAcceptedHandler>();
         static Random random = new Random();
 
-        public async Task Handle(OrderPlaced message, IMessageHandlerContext context)
+        public async Task Handle(OrderAccepted message, IMessageHandlerContext context)
         {
             // Simulate some work
             await Task.Delay(random.Next(25, 50));
 
-            log.Info($"Order '{message.OrderId}' has been placed, make sure the payment goes through.");
+            log.Info($"Order '{message.OrderId}' has been accepted, make sure the payment goes through.");
 
             await ThisIsntGoingToScaleWell();
 

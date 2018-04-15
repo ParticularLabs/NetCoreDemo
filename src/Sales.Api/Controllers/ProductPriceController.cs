@@ -1,4 +1,6 @@
-﻿namespace Sales.Api.Controllers
+﻿using System;
+
+namespace Sales.Api.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using Sales.Api.Models;
@@ -32,6 +34,18 @@
                 return NotFound();
             }
             return new ObjectResult(item);
+        }
+
+        [HttpGet]
+        public IActionResult GetById(string productIds)
+        {
+            if (productIds == null)
+            {
+                return NotFound();
+            }
+            var productIdList = productIds.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).ToList();
+            var productsList = context.ProductPrices.Where(p => productIdList.Contains(p.ProductId)).ToList();
+            return new ObjectResult(productsList);
         }
     }
 

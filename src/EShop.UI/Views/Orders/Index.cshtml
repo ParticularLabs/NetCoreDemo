@@ -26,20 +26,24 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach (var order in @Model.Orders)
+                                @foreach (dynamic order in @Model.Orders)
                                 {
                                  <form action="/orders/cancelorder/@order.orderId" method="post">
                                     <tr>
-                                        <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                                        <td>Product Name Dada</td>
+                                        <td style="width: 70px;height:100px"><img src="@order.imageUrl" style="max-height:100%; max-width:100%" /> </td>
+                                        <td>@order.name</td>
                                         <td>@order.orderId</td>
                                         <td>@order.orderPlacedOn</td>
-                                        <td class="text-right">124,90 €</td>
+                                        <td class="text-right">$@order.price</td>
                                         <td class="text-right">
-                                            @if (!order.isOrderAccepted)
-                                            {
-                                                <input type="submit" class="btn btn-danger" value="Cancel Order" />
-                                            }
+                                            @if (!order.isOrderAccepted && !order.isOrderCancelled)
+    {
+                                        <input type="submit" class="btn btn-danger" value="Cancel Order" />
+}
+                                            @if (order.isOrderCancelled)
+    {
+                                                <span class="label label-danger">Cancelled</span>
+}
                                         </td>
                                     </tr>
                                 </form>
