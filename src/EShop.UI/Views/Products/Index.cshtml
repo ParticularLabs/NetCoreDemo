@@ -9,33 +9,31 @@
         <h5 class="section-title h1">Shop for phones</h5>
         <div class="row">
 
+            <div class="col-md">
+            <div class="card-deck">
             @foreach (dynamic product in @Model.Products)
             { 
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="card">
-                        <a href="/products/details/@product.productId" class="">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="@product.imageUrl" width="120" height="140" alt="card image"></p>
-                                <h4 class="card-title">@product.name</h4>
-                                <p class="card-text"></p>
-                            </div>
-                            <div class="card-price">
-                                <p class="price">$@product.price.ToString("f2")</p>
-                            </div>
-                        <div class="card-footer">
-                            @if (@product.inStock)
-                            {
-                                <p class="stock in-stock">In Stock</p>
-                            }
-                            else
-                            {
-                                <p class="stock out-of-stock">Out of Stock</p>
-                            }
+                <div class="card text-center">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="@product.imageUrl" width="120" height="140" alt="card image"></p>
                         </div>
-                        <a></a>
-                    </div>
+                        <h4 class="card-title">@product.name</h4>
+                        <h5>$@product.price.ToString("f2")</h5>
+                        <div class="card-footer">
+                        @if (@product.inStock)
+                        {
+                            <p class="stock in-stock">In Stock</p>
+                        }
+                        else
+                        {
+                            <p class="stock out-of-stock">Out of Stock</p>
+                        }
+                            <a href="/products/details/@product.productId" class="btn btn-primary">Details</a>
+                        </div>
                 </div>
             }
+            </div>
+            </div>
         </div>
     </div>
 </section>
