@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using NServiceBus;
 using NServiceBus.Logging;
 using NServiceBus.MessageMutator;
+using Warehouse.Azure;
 
 namespace Warehouse.Subscriber.Azure
 {
@@ -27,8 +28,10 @@ namespace Warehouse.Subscriber.Azure
             else
             {
                 log.Info("Using Azure Storage Queue Transport");
-                endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
+                var transport = endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
                     .ConnectionString(asqConnectionString);
+
+                transport.Routing().RegisterPublisher(typeof(ItemRestocked), "Warehouse");
 
                 // Persistence Configuration
                 endpointConfiguration.UsePersistence<InMemoryPersistence>();
