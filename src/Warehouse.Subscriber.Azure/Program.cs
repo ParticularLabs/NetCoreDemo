@@ -16,7 +16,7 @@ namespace Warehouse.Subscriber.Azure
             endpointConfiguration.SendFailedMessagesTo("error");
             var asqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoAzureStorageQueueTransport");
           
-            if (String.IsNullOrEmpty(asqConnectionString))
+            if (string.IsNullOrEmpty(asqConnectionString))
             {
                 log.Info("Using Learning Transport");
                 endpointConfiguration.UseTransport<LearningTransport>();
@@ -26,7 +26,7 @@ namespace Warehouse.Subscriber.Azure
             }
             else
             {
-                log.Info("Using Azure Service Bus Transport");
+                log.Info("Using Azure Storage Queue Transport");
                 endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
                     .ConnectionString(asqConnectionString);
 
