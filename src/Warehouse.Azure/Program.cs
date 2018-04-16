@@ -12,9 +12,9 @@ namespace Warehouse.Azure
         {
             var endpointConfiguration = new EndpointConfiguration("Warehouse");
             endpointConfiguration.SendFailedMessagesTo("error");
-            var asbConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoAzureServiceBusTransport");
+            var asqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoAzureStorageQueueTransport");
         
-            if (String.IsNullOrEmpty(asbConnectionString))
+            if (String.IsNullOrEmpty(asqConnectionString))
             {
                 log.Info("Using Learning Transport");
                 endpointConfiguration.UseTransport<LearningTransport>();
@@ -25,9 +25,8 @@ namespace Warehouse.Azure
             else
             {
                 log.Info("Using Azure Service Bus Transport");
-                endpointConfiguration.UseTransport<AzureServiceBusTransport>()
-                    .ConnectionString(asbConnectionString)
-                    .UseForwardingTopology();
+                endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
+                    .ConnectionString(asqConnectionString);
 
                 // Persistence Configuration
                 endpointConfiguration.UsePersistence<InMemoryPersistence>();
