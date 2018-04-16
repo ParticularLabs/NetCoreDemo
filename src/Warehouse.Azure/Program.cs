@@ -12,36 +12,37 @@ namespace Warehouse.Azure
         {
             var endpointConfiguration = new EndpointConfiguration("Warehouse");
             endpointConfiguration.SendFailedMessagesTo("error");
-            var asbConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoAzureServiceBusTransport");
-        
-            if (String.IsNullOrEmpty(asbConnectionString))
+            var asqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoAzureStorageQueueTransport");
+
+            if (string.IsNullOrEmpty(asqConnectionString))
             {
                 log.Info("Using Learning Transport");
                 endpointConfiguration.UseTransport<LearningTransport>();
-                
+
                 // Persistence Configuration
                 endpointConfiguration.UsePersistence<LearningPersistence>();
             }
             else
             {
-                log.Info("Using Azure Service Bus Transport");
-                endpointConfiguration.UseTransport<AzureServiceBusTransport>()
-                    .ConnectionString(asbConnectionString)
-                    .UseForwardingTopology();
+                log.Info("Using Azure Storage Queue Transport");
+                endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
+                    .ConnectionString(asqConnectionString);
 
                 // Persistence Configuration
                 endpointConfiguration.UsePersistence<InMemoryPersistence>();
             }
+
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
             endpointConfiguration.EnableInstallers();
 
             var endpointInstance = await Endpoint.Start(endpointConfiguration)
                 .ConfigureAwait(false);
 
+            log.Info("Press Enter to publish the ItemRestocked event ...");
+
             while (true)
             {
                 var key = Console.ReadKey();
-                log.Info("Press Enter to publish the ItemRestocked event ...");
                 
                 if (key.Key != ConsoleKey.Enter)
                 {

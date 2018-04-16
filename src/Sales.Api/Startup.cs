@@ -64,6 +64,11 @@ namespace Sales.Api
                 {
                     customizations.ExistingLifetimeScope(container);
                 });
+
+            // Configure saga audit plugin
+            endpointConfiguration.AuditSagaStateChanges(
+                serviceControlQueue: "Particular.ServiceControl");
+
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
     }
