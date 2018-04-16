@@ -44,9 +44,9 @@ namespace Warehouse.Subscriber.Azure
             while (true)
             {
                 var key = Console.ReadKey();
-                log.Info("Press Enter to exit ...");
+                log.Info("Press Esc to exit ...");
 
-                if (key.Key == ConsoleKey.Enter)
+                if (key.Key == ConsoleKey.Escape)
                 {
                     break;
                 }
