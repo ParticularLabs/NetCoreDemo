@@ -34,7 +34,7 @@ namespace Sales.ViewModelComposition
             // Create a dictionary that's keyed by OrderId. 
             var orderDictionary = MapToViewModelDictionary(orders);
            
-            // Raise an event so that other views that need t
+            // Raise an event so that other views that need to
             // enrich the view with more data related to each OrderId .  
             await vm.RaiseEventAsync(new OrdersLoaded { OrdersDictionary = orderDictionary});
 
