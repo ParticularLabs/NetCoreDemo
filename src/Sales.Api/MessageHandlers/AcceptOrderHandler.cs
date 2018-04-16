@@ -25,9 +25,11 @@ namespace Sales.Api.MessageHandlers
             await dbContext.SaveChangesAsync().ConfigureAwait(false);
             
             // Publish event
-            await context.Publish(new OrderPlaced()
+            await context.Publish(new OrderAccepted()
             {
-                OrderId = message.OrderId
+                OrderId = message.OrderId,
+                ProductId = message.ProductId
+                
             }).ConfigureAwait(false);
         }
     }

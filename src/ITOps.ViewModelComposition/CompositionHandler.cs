@@ -15,7 +15,7 @@ namespace ITOps.ViewModelComposition.Gateway
             var pending = new List<Task>();
             var routeData = context.GetRouteData();
             var request = context.Request;
-            var vm = new ExpandoObject();
+            var vm = new DynamicViewModel(routeData, request.Query);
             var interceptors = context.RequestServices.GetServices<IInterceptRoutes>();
 
             //matching interceptors could be cached by URL
@@ -23,23 +23,35 @@ namespace ITOps.ViewModelComposition.Gateway
                 .Where(a => a.Matches(routeData, request.Method, request))
                 .ToArray();
 
-            foreach (var handler in matching.OfType<IHandleRequests>())
+            try
             {
-                pending.Add
-                (
-                    handler.Handle(vm, routeData, request)
-                );
-            }
+                foreach (var subscriber in interceptors.OfType<ISubscribeToViewModelCompositionEvent>())
+                {
+                    subscriber.RegisterCallback(vm);
+                }
 
-            if (pending.Count == 0)
-            {
-                return (null, StatusCodes.Status404NotFound);
-            }
-            else
-            {
-                await Task.WhenAll(pending);
+                foreach (var handler in matching.OfType<IHandleRequests>())
+                {
+                    pending.Add
+                    (
+                        handler.Handle(vm, routeData, request)
+                    );
+                }
 
-                return (vm, StatusCodes.Status200OK);
+                if (pending.Count == 0)
+                {
+                    return (null, StatusCodes.Status404NotFound);
+                }
+                else
+                {
+                    await Task.WhenAll(pending);
+
+                    return (vm, StatusCodes.Status200OK);
+                }
+            }
+            finally
+            {
+                vm.ClearCallbackRegistrations();
             }
         }
     }

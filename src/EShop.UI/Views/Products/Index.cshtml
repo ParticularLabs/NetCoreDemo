@@ -2,10 +2,40 @@
     ViewData["Title"] = "Product Catalog";
 }
 
-<h2>Products</h2>
 
-<ul>
-    <li><a href="/products/details/1">Apple iPhone X</a></li>
-    <li><a href="/products/details/2">Google Pixel 2 XL</a></li>
-    <li><a href="/products/details/3">Galaxy Note 8</a></li>
-</ul>
+<!-- Phones -->
+<section id="team" class="pb-5">
+    <div class="container">
+        <h5 class="section-title h1">Shop for phones</h5>
+        <div class="row">
+
+            @foreach (dynamic product in @Model.Products)
+            { 
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="card">
+                        <a href="/products/details/@product.productId" class="">
+                            <div class="card-body text-center">
+                                <p><img class=" img-fluid" src="@product.imageUrl" width="120" height="140" alt="card image"></p>
+                                <h4 class="card-title">@product.name</h4>
+                                <p class="card-text"></p>
+                            </div>
+                            <div class="card-price">
+                                <p class="price">$@product.price.ToString("f2")</p>
+                            </div>
+                        <div class="card-footer">
+                            @if (@product.inStock)
+                            {
+                                <p class="stock in-stock">In Stock</p>
+                            }
+                            else
+                            {
+                                <p class="stock out-of-stock">Out of Stock</p>
+                            }
+                        </div>
+                        <a></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

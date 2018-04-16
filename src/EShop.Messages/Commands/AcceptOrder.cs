@@ -8,5 +8,6 @@ namespace EShop.Messages.Commands
     public class AcceptOrder : ICommand
     {
         public string OrderId { get; set; }
+        public int ProductId { get; set; }
     }
 }

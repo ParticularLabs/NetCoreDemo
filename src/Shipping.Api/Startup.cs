@@ -41,6 +41,11 @@ namespace Shipping.Api
         {
             var endpointConfiguration = new EndpointConfiguration("Shipping.Api");
             endpointConfiguration.ApplyCommonNServiceBusConfiguration();
+
+            // Configure saga audit plugin
+            endpointConfiguration.AuditSagaStateChanges(
+                serviceControlQueue: "Particular.ServiceControl");
+
             var instance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
             services.AddSingleton<IMessageSession>(instance);
         }

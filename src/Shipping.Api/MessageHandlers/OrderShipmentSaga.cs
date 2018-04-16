@@ -7,7 +7,7 @@
 
     public class OrderShipmentSaga : Saga<OrderShipmentSagaData>, 
         IAmStartedByMessages<OrderBilled>, 
-        IAmStartedByMessages<OrderPlaced>
+        IAmStartedByMessages<OrderAccepted>
     {
         static ILog log = LogManager.GetLogger<OrderShipmentSaga>();
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<OrderShipmentSagaData> mapper)
@@ -15,7 +15,7 @@
             mapper.ConfigureMapping<OrderBilled>(message => message.OrderId)
                 .ToSaga(sagaData => sagaData.OrderId);
 
-            mapper.ConfigureMapping<OrderPlaced>(message => message.OrderId)
+            mapper.ConfigureMapping<OrderAccepted>(message => message.OrderId)
                 .ToSaga(sagaData => sagaData.OrderId);
         }
 
@@ -27,19 +27,19 @@
             return Task.CompletedTask;
         }
 
-        public Task Handle(OrderPlaced message, IMessageHandlerContext context)
+        public Task Handle(OrderAccepted message, IMessageHandlerContext context)
         {
-            log.Info($"Order '{message.OrderId}' has been placed.");
-            Data.IsOrderReceived = true;
+            log.Info($"Order '{message.OrderId}' has been accepted. Prepare inventory ready for shipping");
+            Data.IsOrderAccepted = true;
             CompleteSagaIfBothEventsReceived();
             return Task.CompletedTask;
         }
 
         public Task CompleteSagaIfBothEventsReceived()
         {
-            if (Data.IsOrderBilled && Data.IsOrderReceived)
+            if (Data.IsOrderBilled && Data.IsOrderAccepted)
             {
-                log.Info($"Order '{Data.OrderId}' is ready to ship as both OrderPlaced and OrderBilled events has been received.");
+                log.Info($"Order '{Data.OrderId}' is ready to ship as both OrderAccepted and OrderBilled events has been received.");
                 MarkAsComplete();
             }
 

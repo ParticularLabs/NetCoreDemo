@@ -24,6 +24,8 @@
         public async Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
             log.Info($"Received the PlaceOrder command for {message.OrderId}. Wait for the grace period to see if the user cancels order.");
+            Data.ProductId = message.ProductId;
+            Data.OrderId = message.OrderId;
             await context.Send(new StoreOrder()
             {
                 OrderId = message.OrderId,
@@ -50,7 +52,8 @@
             MarkAsComplete();
             return context.Send(new AcceptOrder()
             {
-                OrderId = Data.OrderId
+                OrderId = Data.OrderId,
+                ProductId = Data.ProductId
             });
         }
     }

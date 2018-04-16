@@ -9,7 +9,7 @@ function publish_app () {
     scp -r src/$1/$PUBLISH_PATH ubuntu@$DEPLOY_SERVER:~/$1
 }
 
-dotnet publish src
+dotnet publish src/EShop.sln
 
 if [ $? -ne 0 ]
 then
