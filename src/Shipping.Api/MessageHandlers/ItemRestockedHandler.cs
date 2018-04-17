@@ -11,8 +11,7 @@
 
         public Task Handle(ItemRestocked message, IMessageHandlerContext context)
         {
-            // TODO: should be ProductId, not OrderId
-            log.Info($"{message.OrderId}");
+            log.Info($"{message.ProductId}");
 
             return Task.CompletedTask;
         }
