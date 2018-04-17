@@ -1,14 +1,15 @@
-﻿using ITOps.Shared;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using NServiceBus;
-using Shipping.Api.Data;
-
-namespace Shipping.Api
+﻿namespace Shipping.Api
 {
+    using ITOps.Shared;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using NServiceBus;
+    using Shipping.Api.Data;
+    using Warehouse.Azure;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -40,7 +41,15 @@ namespace Shipping.Api
         void BootstrapNServiceBusForMessaging(IServiceCollection services)
         {
             var endpointConfiguration = new EndpointConfiguration("Shipping.Api");
-            endpointConfiguration.ApplyCommonNServiceBusConfiguration();
+
+            endpointConfiguration.ApplyCommonNServiceBusConfiguration(bridgeConfigurator: transport =>
+            {
+                // Bridge Shipping
+                var bridge = transport.Routing().ConnectToBridge("bridge-shipping");
+
+                // Subscribe to events from warehouse to be delivered via bridge
+                bridge.RegisterPublisher(eventType: typeof(ItemRestocked), publisherEndpointName: "warehouse");
+            });
 
             // Configure saga audit plugin
             endpointConfiguration.AuditSagaStateChanges(

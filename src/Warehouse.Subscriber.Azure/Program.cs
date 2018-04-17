@@ -16,26 +16,19 @@ namespace Warehouse.Subscriber.Azure
             var endpointConfiguration = new EndpointConfiguration("Warehouse-Subscriber");
             endpointConfiguration.SendFailedMessagesTo("error");
             var asqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoAzureStorageQueueTransport");
-          
             if (string.IsNullOrEmpty(asqConnectionString))
             {
-                log.Info("Using Learning Transport");
-                endpointConfiguration.UseTransport<LearningTransport>();
-
-                // Persistence Configuration
-                endpointConfiguration.UsePersistence<LearningPersistence>();
+                log.Info("Connection for Azure Storage Queue transport is missing or empty.");
             }
-            else
-            {
-                log.Info("Using Azure Storage Queue Transport");
-                var transport = endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
-                    .ConnectionString(asqConnectionString);
+            
+            log.Info("Using Azure Storage Queue Transport");
+            var transport = endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
+                .ConnectionString(asqConnectionString);
 
-                transport.Routing().RegisterPublisher(typeof(ItemRestocked), "Warehouse");
+            transport.Routing().RegisterPublisher(typeof(ItemRestocked), "Warehouse");
 
-                // Persistence Configuration
-                endpointConfiguration.UsePersistence<InMemoryPersistence>();
-            }
+            // Persistence Configuration
+            endpointConfiguration.UsePersistence<InMemoryPersistence>();
 
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
             endpointConfiguration.RegisterMessageMutator(new RemoveAssemblyInfoFromMessageMutator());
