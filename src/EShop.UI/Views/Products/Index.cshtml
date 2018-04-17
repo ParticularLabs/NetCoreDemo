@@ -22,11 +22,11 @@
                         <div class="card-footer">
                         @if (@product.inStock)
                         {
-                            <p class="stock in-stock">In Stock</p>
+                            <p class="badge-pill badge-info">In Stock</p>
                         }
                         else
                         {
-                            <p class="stock out-of-stock">Out of Stock</p>
+                            <p class="badge-pill badge-danger">Out of Stock</p>
                         }
                             <a href="/products/details/@product.productId" class="btn btn-primary">Details</a>
                         </div>
