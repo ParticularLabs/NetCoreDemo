@@ -1,4 +1,8 @@
-﻿namespace ITOps.WarehouseBridge
+﻿using NServiceBus.Configuration.AdvancedExtensibility;
+using NServiceBus.Serialization;
+using NServiceBus.Settings;
+
+namespace ITOps.WarehouseBridge
 {
     using System;
     using System.Threading.Tasks;
@@ -28,10 +32,16 @@
                 {
                     transport.ConnectionString(asqConnectionString);
                     transport.SerializeMessageWrapperWith<NewtonsoftSerializer>();
+
+                    // Workaround required for ASQ
+                    var settings = transport.GetSettings();
+                    var serializer = Tuple.Create(new NewtonsoftSerializer() as SerializationDefinition, new SettingsHolder());
+                    settings.Set("MainSerializer", serializer);
                 })
                 .And<RabbitMQTransport>(endpointName: "bridge-shipping", customization: transport =>
                 {
                     transport.ConnectionString(rabbitMqConnectionString);
+                    transport.UseConventionalRoutingTopology();
                 });
 
             bridgeConfiguration.AutoCreateQueues();
