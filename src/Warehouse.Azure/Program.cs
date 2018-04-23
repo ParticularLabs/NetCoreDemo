@@ -24,9 +24,6 @@
             var transport = endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
                 .ConnectionString(asqConnectionString);
 
-            // Bridge Warehouse
-            transport.Routing().ConnectToBridge("bridge-warehouse");
-
             // Persistence Configuration
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
 
