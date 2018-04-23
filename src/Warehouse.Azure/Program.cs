@@ -46,7 +46,7 @@
 
                 var message = new ItemRestocked()
                 {
-                    ProductId = "EShop-1"
+                    ProductId = "3"
                 };
                 await endpointInstance.Publish(message)
                     .ConfigureAwait(false);
