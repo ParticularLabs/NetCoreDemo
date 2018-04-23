@@ -5,7 +5,7 @@
     using NServiceBus;
     using NServiceBus.MessageMutator;
 
-    class RemoveAssemblyInfoFromMessageMutator : IMutateIncomingTransportMessages
+    public class RemoveAssemblyInfoFromMessageMutator : IMutateIncomingTransportMessages
     {
         public Task MutateIncoming(MutateIncomingTransportMessageContext context)
         {
