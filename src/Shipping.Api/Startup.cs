@@ -1,4 +1,6 @@
-﻿namespace Shipping.Api
+﻿using NServiceBus.MessageMutator;
+
+namespace Shipping.Api
 {
     using ITOps.Shared;
     using Microsoft.AspNetCore.Builder;
@@ -50,6 +52,9 @@
                 // Subscribe to events from warehouse to be delivered via bridge
                 bridge.RegisterPublisher(eventType: typeof(ItemRestocked), publisherEndpointName: "warehouse");
             });
+
+            // Remove assembly information to be able to reuse message schema from different endpoints w/o sharing messages assembly
+            endpointConfiguration.RegisterMessageMutator(new RemoveAssemblyInfoFromMessageMutator());
 
             // Configure saga audit plugin
             endpointConfiguration.AuditSagaStateChanges(
