@@ -56,12 +56,7 @@
         IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
         {
             var endpointConfiguration = new EndpointConfiguration("Marketing.Api");
-            endpointConfiguration.ApplyCommonNServiceBusConfiguration();
-            endpointConfiguration.UseContainer<AutofacBuilder>(
-                customizations: customizations =>
-                {
-                    customizations.ExistingLifetimeScope(container);
-                });
+            endpointConfiguration.ApplyCommonNServiceBusConfiguration(container);
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
     }

@@ -1,16 +1,17 @@
-﻿using System;
-using NServiceBus;
-using NServiceBus.Logging;
-using NServiceBus.Transport;
-
-namespace ITOps.Shared
+﻿namespace ITOps.Shared
 {
+    using System;
+    using Autofac;
+    using NServiceBus;
+    using NServiceBus.Logging;
+    using NServiceBus.Transport;
+
     public static class CommonNServiceBusConfiguration
     {
         static ILog log = LogManager.GetLogger(typeof (CommonNServiceBusConfiguration));
 
         public static void ApplyCommonNServiceBusConfiguration(this EndpointConfiguration endpointConfiguration, 
-            bool enableMonitoring = true, Action<TransportExtensions<RabbitMQTransport>> bridgeConfigurator = null)
+            IContainer autofacExternalContainer = null, bool enableMonitoring = true, Action<TransportExtensions<RabbitMQTransport>> bridgeConfigurator = null)
         {
 
             // Transport configuration
@@ -38,7 +39,13 @@ namespace ITOps.Shared
                 // Persistence Configuration
                 endpointConfiguration.UsePersistence<InMemoryPersistence>();
             }
-            
+
+            if (autofacExternalContainer != null)
+            {
+                endpointConfiguration.UseContainer<AutofacBuilder>(
+                    customizations: customizations => { customizations.ExistingLifetimeScope(autofacExternalContainer); });
+            }
+
             endpointConfiguration.EnableInstallers();
 
             // JSON Serializer

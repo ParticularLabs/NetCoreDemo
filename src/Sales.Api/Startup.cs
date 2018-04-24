@@ -58,17 +58,11 @@ namespace Sales.Api
         IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
         {
             var endpointConfiguration = new EndpointConfiguration("Sales.Api");
-            endpointConfiguration.ApplyCommonNServiceBusConfiguration();
-            endpointConfiguration.UseContainer<AutofacBuilder>(
-                customizations: customizations =>
-                {
-                    customizations.ExistingLifetimeScope(container);
-                });
+            endpointConfiguration.ApplyCommonNServiceBusConfiguration(container);
 
             // Configure saga audit plugin
             endpointConfiguration.AuditSagaStateChanges(
                 serviceControlQueue: "Particular.ServiceControl");
-
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
     }
