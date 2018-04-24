@@ -1,4 +1,7 @@
-﻿namespace Shipping.Api.MessageHandlers
+﻿using System.Linq;
+using Shipping.Api.Data;
+
+namespace Shipping.Api.MessageHandlers
 {
     using System.Threading.Tasks;
     using NServiceBus;
@@ -8,12 +11,20 @@
     public class ItemRestockedHandler : IHandleMessages<ItemRestocked>
     {
         static ILog log = LogManager.GetLogger<ItemRestocked>();
+        private readonly StockItemDbContext dbContext;
 
-        public Task Handle(ItemRestocked message, IMessageHandlerContext context)
+        public ItemRestockedHandler(StockItemDbContext dbContext)
         {
-            log.Info($"{message.ProductId}");
+            this.dbContext = dbContext;
+        }
 
-            return Task.CompletedTask;
+        public async Task Handle(ItemRestocked message, IMessageHandlerContext context)
+        {
+            log.Info($"Product with ID '{message.ProductId}' is now available.");
+
+            var stockItem = dbContext.StockItems.First(x => x.ProductId == message.ProductId);
+            stockItem.InStock = true;
+            await dbContext.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

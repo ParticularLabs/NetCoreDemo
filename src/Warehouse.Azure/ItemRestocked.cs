@@ -5,6 +5,6 @@ namespace Warehouse.Azure
 {
     public class ItemRestocked : IEvent
     {
-        public string ProductId { get; set; }
+        public int ProductId { get; set; }
     }
 }

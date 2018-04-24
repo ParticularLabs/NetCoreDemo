@@ -11,6 +11,8 @@
 
         static async Task Main(string[] args)
         {
+            Console.Title = "Warehouse in Azure";
+
             var endpointConfiguration = new EndpointConfiguration("Warehouse");
             endpointConfiguration.SendFailedMessagesTo("error");
 
@@ -21,7 +23,7 @@
             }
             
             log.Info("Using Azure Storage Queue Transport");
-            var transport = endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
+            endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
                 .ConnectionString(asqConnectionString);
 
             // Persistence Configuration
@@ -46,11 +48,11 @@
 
                 var message = new ItemRestocked()
                 {
-                    ProductId = "3"
+                    ProductId = 3
                 };
                 await endpointInstance.Publish(message)
                     .ConfigureAwait(false);
-                log.Info("Published message ItemRestocked for EShop-1");
+                log.Info($"Published message ItemRestocked for product ID '{message.ProductId}'.");
             }
             await endpointInstance.Stop()
                 .ConfigureAwait(false);
