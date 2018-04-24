@@ -9,13 +9,14 @@ namespace ITOps.Shared
     {
         static ILog log = LogManager.GetLogger(typeof (CommonNServiceBusConfiguration));
 
-        public static void ApplyCommonNServiceBusConfiguration(this EndpointConfiguration endpointConfiguration, bool enableMonitoring = true)
+        public static void ApplyCommonNServiceBusConfiguration(this EndpointConfiguration endpointConfiguration, 
+            bool enableMonitoring = true, Action<TransportExtensions<RabbitMQTransport>> bridgeConfigurator = null)
         {
 
             // Transport configuration
             var rabbitMqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoRabbitMQTransport");
 
-            if (String.IsNullOrEmpty(rabbitMqConnectionString))
+            if (string.IsNullOrEmpty(rabbitMqConnectionString))
             {
                 log.Info("Using Learning Transport");
                 var transport = endpointConfiguration.UseTransport<LearningTransport>();
@@ -29,7 +30,11 @@ namespace ITOps.Shared
                 var transport = endpointConfiguration.UseTransport<RabbitMQTransport>()
                     .ConnectionString(rabbitMqConnectionString)
                     .UseConventionalRoutingTopology();
+
                 ConfigureRouting(transport);
+
+                bridgeConfigurator?.Invoke(transport);
+
                 // Persistence Configuration
                 endpointConfiguration.UsePersistence<InMemoryPersistence>();
             }

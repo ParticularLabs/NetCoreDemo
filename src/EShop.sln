@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shipping.ViewModelCompositi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadGenerator", "LoadGenerator\LoadGenerator.csproj", "{019BC2DB-EEED-475B-978D-9D22C9401034}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITOps.WarehouseBridge", "ITOps.WarehouseBridge\ITOps.WarehouseBridge.csproj", "{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -194,6 +196,18 @@ Global
 		{019BC2DB-EEED-475B-978D-9D22C9401034}.Release|x64.Build.0 = Release|Any CPU
 		{019BC2DB-EEED-475B-978D-9D22C9401034}.Release|x86.ActiveCfg = Release|Any CPU
 		{019BC2DB-EEED-475B-978D-9D22C9401034}.Release|x86.Build.0 = Release|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Debug|x64.Build.0 = Debug|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Debug|x86.Build.0 = Debug|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Release|x64.ActiveCfg = Release|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Release|x64.Build.0 = Release|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Release|x86.ActiveCfg = Release|Any CPU
+		{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,36 +1,33 @@
-﻿using System;
-using System.Threading.Tasks;
-using NServiceBus;
-using NServiceBus.Logging;
-
-namespace Warehouse.Azure
+﻿namespace Warehouse.Azure
 {
+    using System;
+    using System.Threading.Tasks;
+    using NServiceBus;
+    using NServiceBus.Logging;
+
     class Program
     {
         static ILog log = LogManager.GetLogger(typeof(Program));
+
         static async Task Main(string[] args)
         {
+            Console.Title = "Warehouse in Azure";
+
             var endpointConfiguration = new EndpointConfiguration("Warehouse");
             endpointConfiguration.SendFailedMessagesTo("error");
-            var asqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoAzureStorageQueueTransport");
 
+            var asqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoAzureStorageQueueTransport");
             if (string.IsNullOrEmpty(asqConnectionString))
             {
-                log.Info("Using Learning Transport");
-                endpointConfiguration.UseTransport<LearningTransport>();
-
-                // Persistence Configuration
-                endpointConfiguration.UsePersistence<LearningPersistence>();
+                log.Info("Connection for Azure Storage Queue transport is missing or empty.");
             }
-            else
-            {
-                log.Info("Using Azure Storage Queue Transport");
-                endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
-                    .ConnectionString(asqConnectionString);
+            
+            log.Info("Using Azure Storage Queue Transport");
+            endpointConfiguration.UseTransport<AzureStorageQueueTransport>()
+                .ConnectionString(asqConnectionString);
 
-                // Persistence Configuration
-                endpointConfiguration.UsePersistence<InMemoryPersistence>();
-            }
+            // Persistence Configuration
+            endpointConfiguration.UsePersistence<InMemoryPersistence>();
 
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
             endpointConfiguration.EnableInstallers();
@@ -43,19 +40,19 @@ namespace Warehouse.Azure
             while (true)
             {
                 var key = Console.ReadKey();
-                
+
                 if (key.Key != ConsoleKey.Enter)
                 {
                     break;
                 }
-                
+
                 var message = new ItemRestocked()
                 {
-                    OrderId = "EShop-1"
+                    ProductId = 3
                 };
                 await endpointInstance.Publish(message)
                     .ConfigureAwait(false);
-                log.Info("Published message ItemRestocked for EShop-1");
+                log.Info($"Published message ItemRestocked for product ID '{message.ProductId}'.");
             }
             await endpointInstance.Stop()
                 .ConfigureAwait(false);
