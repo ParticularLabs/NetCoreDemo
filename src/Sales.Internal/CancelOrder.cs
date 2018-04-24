@@ -1,7 +1,7 @@
-﻿namespace EShop.Messages.Commands
-{
-    using NServiceBus;
+﻿using NServiceBus;
 
+namespace Sales.Internal
+{
     public class CancelOrder : ICommand
     {
         public string OrderId { get; set; }

@@ -1,11 +1,11 @@
 ﻿using System.Dynamic;
+using Sales.Events.ViewModelComposition;
 
 namespace Sales.ViewModelComposition
 {
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using EShop.Messages.ViewModelCompositionEvents;
     using ITOps.ViewModelComposition;
     using ITOps.ViewModelComposition.Json;
     using Microsoft.AspNetCore.Http;

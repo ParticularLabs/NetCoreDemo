@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Dynamic;
 using System.Threading.Tasks;
+using Marketing.Events.ViewModelComposition;
 
 namespace Marketing.ViewModelComposition
 {
@@ -10,7 +11,6 @@ namespace Marketing.ViewModelComposition
     using Microsoft.AspNetCore.Routing;
     using ITOps.ViewModelComposition.Json;
     using ITOps.ViewModelComposition;
-    using EShop.Messages.ViewModelCompositionEvents;
 
     class ProductsListGetHandler : IHandleRequests
     {

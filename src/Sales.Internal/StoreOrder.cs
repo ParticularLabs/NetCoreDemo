@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using NServiceBus;
 
-namespace EShop.Messages.Commands
+namespace Sales.Internal
 {
-    public class AcceptOrder : ICommand
+    public class StoreOrder : ICommand
     {
         public string OrderId { get; set; }
         public int ProductId { get; set; }
+        public DateTime OrderPlacedOn { get; set; }
     }
 }

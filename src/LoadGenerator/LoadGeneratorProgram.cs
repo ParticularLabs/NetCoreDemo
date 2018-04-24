@@ -1,10 +1,11 @@
-﻿namespace LoadGenerator
+﻿using Sales.Internal;
+
+namespace LoadGenerator
 {
     using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using EShop.Messages.Commands;
     using ITOps.Shared;
     using NServiceBus;
 

@@ -1,12 +1,12 @@
 ﻿using Marketing.Api.Data;
 using Marketing.Api.Models;
+using Sales.Events;
 
 namespace Marketing.Api.MessageHandlers
 {
     using System;
     using System.Threading.Tasks;
     using NServiceBus;
-    using EShop.Messages.Events;
     using NServiceBus.Logging;
 
     public class OrderPlacedHandler : IHandleMessages<OrderPlaced>

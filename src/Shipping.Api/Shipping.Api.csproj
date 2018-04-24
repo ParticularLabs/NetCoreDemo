@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
-    <PackageReference Include="NServiceBus" Version="7.0.0-rc0001" />
+    <PackageReference Include="NServiceBus" Version="7.0.0-rc0002" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.1.0-beta0001" />
     <PackageReference Include="nservicebus.sagaaudit" Version="3.0.0-rc0001" />
     <PackageReference Include="NServiceBus.Bridge.Connector" Version="2.0.0-rc0003" />
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EShop.Messages\EShop.Messages.csproj" />
+    <ProjectReference Include="..\Billing.Events\Billing.Events.csproj" />
     <ProjectReference Include="..\ITOps.Shared\ITOps.Shared.csproj" />
   </ItemGroup>
 

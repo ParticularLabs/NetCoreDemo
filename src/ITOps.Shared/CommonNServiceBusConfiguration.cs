@@ -69,11 +69,11 @@
             where T : TransportDefinition
         {
             var routing = transport.Routing();
-            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.PlaceOrder), "Sales.Api");
-            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.CancelOrder), "Sales.Api");
-            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.StoreOrder), "Sales.Api");
-            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.AcceptOrder), "Sales.Api");
-            routing.RouteToEndpoint(typeof(EShop.Messages.Commands.RecordConsumerBehavior), "Marketing.Api");
+            routing.RouteToEndpoint(typeof(Sales.Internal.PlaceOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(Sales.Internal.CancelOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(Sales.Internal.StoreOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(Sales.Internal.AcceptOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(Marketing.Internal.RecordConsumerBehavior), "Marketing.Api");
 
             // For transports that do not support publish/subcribe natively, e.g. MSMQ, SqlTransport, call RegisterPublisher
         }

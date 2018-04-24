@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
-using EShop.Messages.Commands;
 using ITOps.ViewModelComposition;
 using NServiceBus;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Sales.Internal;
 
 namespace Sales.ViewModelComposition
 {

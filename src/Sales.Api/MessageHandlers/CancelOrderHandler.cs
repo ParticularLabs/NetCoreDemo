@@ -1,10 +1,12 @@
-﻿namespace Sales.Api.MessageHandlers
+﻿using Sales.Internal;
+
+namespace Sales.Api.MessageHandlers
 {
     using System.Linq;
     using Sales.Api.Data;
     using System.Threading.Tasks;
-    using EShop.Messages.Commands;
     using NServiceBus;
+
     public class CancelOrderHandler : IHandleMessages<CancelOrder>
     {
         private readonly SalesDbContext dbContext;

@@ -1,11 +1,13 @@
-﻿namespace Sales.Api.MessageHandlers
+﻿using Sales.Internal;
+
+namespace Sales.Api.MessageHandlers
 {
     using System;
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
-    using EShop.Messages.Commands;
-    using EShop.Messages.Events;
+    using Sales.Events;
+
     public class OrderAcceptancePolicySaga : Saga<OrderAcceptancePolicySagaData> ,
         IAmStartedByMessages<PlaceOrder>,
         IAmStartedByMessages<CancelOrder>,

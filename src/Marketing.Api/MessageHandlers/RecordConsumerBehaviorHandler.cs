@@ -1,11 +1,11 @@
-﻿using NServiceBus.Logging;
+﻿using Marketing.Internal;
+using NServiceBus.Logging;
 
 namespace Marketing.Api.MessageHandlers
 {
     using System;
     using System.Threading.Tasks;
     using NServiceBus;
-    using EShop.Messages.Commands;
 
     public class RecordConsumerBehaviorHandler : IHandleMessages<RecordConsumerBehavior>
     {

@@ -1,11 +1,12 @@
-﻿using NServiceBus.Logging;
+﻿using Billing.Events;
+using NServiceBus.Logging;
+using Sales.Events;
 
 namespace Billing.Api.MessageHandlers
 {
     using System;
     using System.Threading.Tasks;
     using NServiceBus;
-    using EShop.Messages.Events;
     
     public class OrderAcceptedHandler : IHandleMessages<OrderAccepted>
     {

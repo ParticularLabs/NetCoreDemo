@@ -1,4 +1,6 @@
-﻿namespace Marketing.ViewModelComposition
+﻿using Sales.Events.ViewModelComposition;
+
+namespace Marketing.ViewModelComposition
 {
     using System.Linq;
     using System.Net.Http;
@@ -7,7 +9,6 @@
     using Microsoft.AspNetCore.Routing;
     using ITOps.ViewModelComposition.Json;
     using ITOps.ViewModelComposition;
-    using EShop.Messages.ViewModelCompositionEvents;
 
     class OrdersListGetHandler : ISubscribeToViewModelCompositionEvent
     {

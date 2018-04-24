@@ -1,9 +1,10 @@
-﻿namespace Shipping.ViewModelComposition
+﻿using Marketing.Events.ViewModelComposition;
+
+namespace Shipping.ViewModelComposition
 {
     using System.Linq;
     using System.Collections.Generic;
     using System.Net.Http;
-    using EShop.Messages.ViewModelCompositionEvents;
     using ITOps.ViewModelComposition;
     using ITOps.ViewModelComposition.Json;
     using Microsoft.AspNetCore.Http;

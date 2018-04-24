@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EShop.Messages.Commands;
-using EShop.Messages.Events;
-using NServiceBus;
-using Sales.Api.Data;
+﻿using Sales.Internal;
 
 namespace Sales.Api.MessageHandlers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using NServiceBus;
+    using Sales.Api.Data;
+    using Sales.Events;
+
     public class AcceptOrderHandler : IHandleMessages<AcceptOrder>
     {
         private readonly SalesDbContext dbContext;

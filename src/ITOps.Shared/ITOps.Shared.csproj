@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
-    <PackageReference Include="NServiceBus" Version="7.0.0-rc0001" />
+    <PackageReference Include="NServiceBus" Version="7.0.0-rc0002" />
     <PackageReference Include="NServiceBus.Autofac" Version="7.0.0-rc0001" />
     <PackageReference Include="NServiceBus.Heartbeat" Version="3.0.0-rc0001" />
     <PackageReference Include="NServiceBus.Metrics.ServiceControl" Version="3.0.0-beta0004" />
@@ -15,7 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EShop.Messages\EShop.Messages.csproj" />
+    <ProjectReference Include="..\Billing.Events\Billing.Events.csproj" />
+    <ProjectReference Include="..\Marketing.Events\Marketing.Events.csproj" />
+    <ProjectReference Include="..\Marketing.Internal\Marketing.Internal.csproj" />
+    <ProjectReference Include="..\Sales.Events\Sales.Events.csproj" />
+    <ProjectReference Include="..\Sales.Internal\Sales.Internal.csproj" />
+    <ProjectReference Include="..\Shipping.Internal\Shipping.Internal.csproj" />
   </ItemGroup>
 
 </Project>

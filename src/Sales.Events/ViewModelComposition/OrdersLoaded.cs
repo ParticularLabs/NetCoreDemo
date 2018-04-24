@@ -1,7 +1,7 @@
-﻿namespace EShop.Messages.ViewModelCompositionEvents
+﻿namespace Sales.Events.ViewModelComposition
 {
     using System.Collections.Generic;
-    public class ProductsLoaded
+    public class OrdersLoaded
     {
         public IDictionary<dynamic, dynamic> OrdersDictionary { get; set; }
     }

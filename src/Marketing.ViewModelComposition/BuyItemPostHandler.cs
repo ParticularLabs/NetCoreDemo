@@ -1,8 +1,8 @@
 ﻿using System;
-using EShop.Messages.Commands;
 using ITOps.ViewModelComposition;
 using NServiceBus;
 using System.Threading.Tasks;
+using Marketing.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 

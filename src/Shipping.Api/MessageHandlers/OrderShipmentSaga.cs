@@ -1,9 +1,10 @@
 ﻿namespace Shipping.Api.MessageHandlers
 {
     using System.Threading.Tasks;
-    using EShop.Messages.Events;
     using NServiceBus;
     using NServiceBus.Logging;
+    using Billing.Events;
+    using Sales.Events;
 
     public class OrderShipmentSaga : Saga<OrderShipmentSagaData>, 
         IAmStartedByMessages<OrderBilled>, 

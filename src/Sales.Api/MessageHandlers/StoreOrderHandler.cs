@@ -1,14 +1,14 @@
-﻿using System.Linq;
+﻿using Sales.Internal;
 
 namespace Sales.Api.MessageHandlers
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using NServiceBus;
-    using EShop.Messages.Commands;
-    using EShop.Messages.Events;
     using Sales.Api.Data;
     using Sales.Api.Models;
-   
+    using Sales.Events;
+
     public class StoreOrderHandler : IHandleMessages<StoreOrder>
     {
         private readonly SalesDbContext dbContext;
