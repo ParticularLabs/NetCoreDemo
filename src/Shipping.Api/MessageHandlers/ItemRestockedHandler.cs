@@ -7,9 +7,9 @@
     using Shipping.Api.Data;
     using Warehouse.Azure;
 
-    public class ItemRestockedHandler : IHandleMessages<ItemRestocked>
+    public class ItemRestockedHandler : IHandleMessages<ItemStockUpdated>
     {
-        static readonly ILog log = LogManager.GetLogger<ItemRestocked>();
+        static readonly ILog log = LogManager.GetLogger<ItemStockUpdated>();
         readonly StockItemDbContext dbContext;
 
         public ItemRestockedHandler(StockItemDbContext dbContext)
@@ -17,12 +17,12 @@
             this.dbContext = dbContext;
         }
 
-        public async Task Handle(ItemRestocked message, IMessageHandlerContext context)
+        public async Task Handle(ItemStockUpdated message, IMessageHandlerContext context)
         {
-            log.Info($"Product with ID '{message.ProductId}' is now available.");
+            log.Info($"Product Id: '{message.ProductId}', Availability: {message.IsAvailable}");
 
             var stockItem = dbContext.StockItems.First(x => x.ProductId == message.ProductId);
-            stockItem.InStock = true;
+            stockItem.InStock = message.IsAvailable;
             await dbContext.SaveChangesAsync().ConfigureAwait(false);
         }
     }
