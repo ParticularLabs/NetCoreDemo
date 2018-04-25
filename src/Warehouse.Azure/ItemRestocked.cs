@@ -1,10 +1,10 @@
-﻿
-using NServiceBus;
-
-namespace Warehouse.Azure
+﻿namespace Warehouse.Azure
 {
-    public class ItemRestocked : IEvent
+    using NServiceBus;
+
+    public class ItemStockUpdated : IEvent
     {
         public int ProductId { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

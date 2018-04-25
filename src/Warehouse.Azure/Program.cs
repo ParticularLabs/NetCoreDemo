@@ -36,6 +36,7 @@
                 .ConfigureAwait(false);
 
             log.Info("Press Enter to publish the ItemRestocked event ...");
+            bool isAvailable = false;
 
             while (true)
             {
@@ -45,14 +46,17 @@
                 {
                     break;
                 }
-
-                var message = new ItemRestocked()
+                
+                var message = new ItemStockUpdated()
                 {
-                    ProductId = 3
+                    ProductId = 3,
+                    IsAvailable = !isAvailable
+
                 };
                 await endpointInstance.Publish(message)
                     .ConfigureAwait(false);
                 log.Info($"Published message ItemRestocked for product ID '{message.ProductId}'.");
+                isAvailable = !isAvailable;
             }
             await endpointInstance.Stop()
                 .ConfigureAwait(false);

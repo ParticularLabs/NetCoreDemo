@@ -65,7 +65,7 @@
                 var bridge = transport.Routing().ConnectToBridge("bridge-shipping");
 
                 // Subscribe to events from warehouse to be delivered via bridge
-                bridge.RegisterPublisher(typeof(ItemRestocked), "warehouse");
+                bridge.RegisterPublisher(typeof(ItemStockUpdated), "warehouse");
             });
 
             // Remove assembly information to be able to reuse message schema from different endpoints w/o sharing messages assembly
