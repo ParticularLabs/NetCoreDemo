@@ -14,8 +14,7 @@
             IQueryCollection query);
 
         // Keep a list of subcribers of the same route interested in getting called when events are raised.
-        readonly IDictionary<Type, List<EventHandler<object>>> callbackRegistrations =
-            new Dictionary<Type, List<EventHandler<object>>>();
+        readonly IDictionary<Type, List<EventHandler<object>>> callbackRegistrations = new Dictionary<Type, List<EventHandler<object>>>();
 
         // To extend and keep track of properties as part of the dynamic object.
         readonly IDictionary<string, object> properties = new Dictionary<string, object>();
@@ -43,17 +42,17 @@
                 handler(pageViewModel, (TEvent) @event, routeData, query));
         }
 
-        public void ClearCallbackRegistrations()
-        {
-            callbackRegistrations.Clear();
-        }
+        public void ClearCallbackRegistrations() => callbackRegistrations.Clear();
 
         Task RaiseEventAsync(object @event)
         {
             if (callbackRegistrations.TryGetValue(@event.GetType(), out var handlers))
             {
                 var tasks = new List<Task>();
-                foreach (var handler in handlers) tasks.Add(handler.Invoke(this, @event, routeData, query));
+                foreach (var handler in handlers)
+                {
+                    tasks.Add(handler.Invoke(this, @event, routeData, query));
+                }
 
                 return Task.WhenAll(tasks);
             }
@@ -63,10 +62,7 @@
 
 
         // Methods to extend the dynamic object, since we are customizing it cannot just extend the ExpandoObject as it's a sealed class.
-        public override bool TryGetMember(GetMemberBinder binder, out object result)
-        {
-            return properties.TryGetValue(binder.Name, out result);
-        }
+        public override bool TryGetMember(GetMemberBinder binder, out object result) => properties.TryGetValue(binder.Name, out result);
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
@@ -89,7 +85,10 @@
 
         public override IEnumerable<string> GetDynamicMemberNames()
         {
-            foreach (var propertyName in properties.Keys) yield return propertyName;
+            foreach (var propertyName in properties.Keys)
+            {
+                yield return propertyName;
+            }
 
             yield return nameof(RaiseEventAsync);
         }
