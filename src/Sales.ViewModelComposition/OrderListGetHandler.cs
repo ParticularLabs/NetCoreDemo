@@ -1,22 +1,21 @@
-﻿using System.Dynamic;
-using Sales.Events.ViewModelComposition;
-
-namespace Sales.ViewModelComposition
+﻿namespace Sales.ViewModelComposition
 {
     using System.Collections.Generic;
+    using System.Dynamic;
     using System.Net.Http;
     using System.Threading.Tasks;
     using ITOps.ViewModelComposition;
     using ITOps.ViewModelComposition.Json;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Routing;
+    using Sales.Events.ViewModelComposition;
 
-    class OrderListGetHandler : IHandleRequests
+    internal class OrderListGetHandler : IHandleRequests
     {
         public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
         {
-            var controller = (string)routeData.Values["controller"];
-            var action = (string)routeData.Values["action"];
+            var controller = (string) routeData.Values["controller"];
+            var action = (string) routeData.Values["action"];
 
             return HttpMethods.IsGet(httpVerb)
                    && controller.ToLowerInvariant() == "orders"
@@ -33,16 +32,16 @@ namespace Sales.ViewModelComposition
 
             // Create a dictionary that's keyed by OrderId. 
             var orderDictionary = MapToViewModelDictionary(orders);
-           
+
             // Raise an event so that other views that need to
             // enrich the view with more data related to each OrderId .  
-            await vm.RaiseEventAsync(new OrdersLoaded { OrdersDictionary = orderDictionary});
+            await vm.RaiseEventAsync(new OrdersLoaded {OrdersDictionary = orderDictionary});
 
             // Store the enriched data in the viewmodel.
             vm.Orders = orderDictionary.Values;
         }
 
-        IDictionary<dynamic, dynamic> MapToViewModelDictionary(dynamic[] orders)
+        private IDictionary<dynamic, dynamic> MapToViewModelDictionary(dynamic[] orders)
         {
             var dictionary = new Dictionary<dynamic, dynamic>();
 
@@ -57,6 +56,7 @@ namespace Sales.ViewModelComposition
                 orderDetailObject.productId = order.productId;
                 dictionary[order.orderId] = orderDetailObject;
             }
+
             return dictionary;
         }
     }

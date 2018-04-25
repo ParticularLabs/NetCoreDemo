@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Marketing.Events.ViewModelComposition
+﻿namespace Marketing.Events.ViewModelComposition
 {
+    using System.Collections.Generic;
+
     public class ProductsLoaded
     {
         public IDictionary<dynamic, dynamic> OrdersDictionary { get; set; }

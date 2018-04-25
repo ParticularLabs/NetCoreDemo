@@ -1,8 +1,7 @@
 ﻿namespace Sales.Api.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Sales.Api.Models;
     using System.Linq;
+    using Microsoft.AspNetCore.Mvc;
     using Sales.Api.Data;
 
     [Route("order")]
@@ -21,6 +20,4 @@
             return new ObjectResult(item);
         }
     }
-
 }
-

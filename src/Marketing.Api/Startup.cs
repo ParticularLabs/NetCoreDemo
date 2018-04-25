@@ -4,13 +4,13 @@
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using ITOps.Shared;
-    using NServiceBus;
+    using Marketing.Api.Data;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Marketing.Api.Data;
+    using NServiceBus;
 
     public class Startup
     {
@@ -39,21 +39,17 @@
             var container = builder.Build();
             endpoint = BootstrapNServiceBusForMessaging(container);
             return new AutofacServiceProvider(container);
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseMvc();
         }
 
-        IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
+        private IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
         {
             var endpointConfiguration = new EndpointConfiguration("Marketing.Api");
             endpointConfiguration.ApplyCommonNServiceBusConfiguration(container);

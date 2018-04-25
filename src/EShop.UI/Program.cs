@@ -1,12 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-
-namespace EShop.UI
+﻿namespace EShop.UI
 {
+    using System.IO;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+
     public class Program
     {
         public static void Main(string[] args)

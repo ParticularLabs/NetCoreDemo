@@ -1,17 +1,16 @@
-﻿using System;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-
-namespace Sales.Api
+﻿namespace Sales.Api
 {
+    using System;
+    using Autofac;
+    using Autofac.Extensions.DependencyInjection;
+    using ITOps.Shared;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Sales.Api.Data;
-    using ITOps.Shared;
     using NServiceBus;
+    using Sales.Api.Data;
 
     public class Startup
     {
@@ -47,22 +46,19 @@ namespace Sales.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseMvc();
         }
 
-        IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
+        private IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
         {
             var endpointConfiguration = new EndpointConfiguration("Sales.Api");
             endpointConfiguration.ApplyCommonNServiceBusConfiguration(container);
 
             // Configure saga audit plugin
             endpointConfiguration.AuditSagaStateChanges(
-                serviceControlQueue: "Particular.ServiceControl");
+                "Particular.ServiceControl");
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
     }

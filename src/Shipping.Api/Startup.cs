@@ -3,7 +3,6 @@
     using System;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
-    using NServiceBus.MessageMutator;
     using ITOps.Shared;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -11,6 +10,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
+    using NServiceBus.MessageMutator;
     using Shipping.Api.Data;
     using Warehouse.Azure;
 
@@ -28,7 +28,7 @@
         {
             services.AddDbContext<StockItemDbContext>(opt => opt.UseInMemoryDatabase("StockItemList"));
             services.AddMvc();
-            
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
 
@@ -47,15 +47,12 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseMvc();
         }
 
-        IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
+        private IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
         {
             var endpointConfiguration = new EndpointConfiguration("Shipping.Api");
 
@@ -65,15 +62,15 @@
                 var bridge = transport.Routing().ConnectToBridge("bridge-shipping");
 
                 // Subscribe to events from warehouse to be delivered via bridge
-                bridge.RegisterPublisher(eventType: typeof(ItemRestocked), publisherEndpointName: "warehouse");
+                bridge.RegisterPublisher(typeof(ItemRestocked), "warehouse");
             });
-           
+
             // Remove assembly information to be able to reuse message schema from different endpoints w/o sharing messages assembly
             endpointConfiguration.RegisterMessageMutator(new RemoveAssemblyInfoFromMessageMutator());
 
             // Configure saga audit plugin
             endpointConfiguration.AuditSagaStateChanges(
-                serviceControlQueue: "Particular.ServiceControl");
+                "Particular.ServiceControl");
 
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }

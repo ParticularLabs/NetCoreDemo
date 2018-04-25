@@ -1,16 +1,15 @@
-﻿using System.Linq;
-using Shipping.Api.Data;
-
-namespace Shipping.Api.MessageHandlers
+﻿namespace Shipping.Api.MessageHandlers
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
+    using Shipping.Api.Data;
     using Warehouse.Azure;
 
     public class ItemRestockedHandler : IHandleMessages<ItemRestocked>
     {
-        static ILog log = LogManager.GetLogger<ItemRestocked>();
+        private static readonly ILog log = LogManager.GetLogger<ItemRestocked>();
         private readonly StockItemDbContext dbContext;
 
         public ItemRestockedHandler(StockItemDbContext dbContext)

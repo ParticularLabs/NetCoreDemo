@@ -1,23 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Dynamic;
-using System.Threading.Tasks;
-using Marketing.Events.ViewModelComposition;
-
-namespace Marketing.ViewModelComposition
+﻿namespace Marketing.ViewModelComposition
 {
-    using System.Linq;
+    using System.Collections.Generic;
+    using System.Dynamic;
     using System.Net.Http;
+    using System.Threading.Tasks;
+    using ITOps.ViewModelComposition;
+    using ITOps.ViewModelComposition.Json;
+    using Marketing.Events.ViewModelComposition;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Routing;
-    using ITOps.ViewModelComposition.Json;
-    using ITOps.ViewModelComposition;
 
-    class ProductsListGetHandler : IHandleRequests
+    internal class ProductsListGetHandler : IHandleRequests
     {
         public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
         {
-            var controller = (string)routeData.Values["controller"];
-            var action = (string)routeData.Values["action"];
+            var controller = (string) routeData.Values["controller"];
+            var action = (string) routeData.Values["action"];
 
             return HttpMethods.IsGet(httpVerb)
                    && controller.ToLowerInvariant() == "products"
@@ -37,13 +35,13 @@ namespace Marketing.ViewModelComposition
 
             // Raise an event so that other views that need t
             // enrich the view with more data related to each OrderId .  
-            await vm.RaiseEventAsync(new ProductsLoaded { OrdersDictionary = orderDictionary });
+            await vm.RaiseEventAsync(new ProductsLoaded {OrdersDictionary = orderDictionary});
 
             // Store the enriched data in the viewmodel.
             vm.Products = orderDictionary.Values;
         }
 
-        IDictionary<dynamic, dynamic> MapToViewModelDictionary(dynamic[] products)
+        private IDictionary<dynamic, dynamic> MapToViewModelDictionary(dynamic[] products)
         {
             var dictionary = new Dictionary<dynamic, dynamic>();
 
@@ -55,6 +53,7 @@ namespace Marketing.ViewModelComposition
                 productDetailObject.imageUrl = product.imageUrl;
                 dictionary[product.productId] = productDetailObject;
             }
+
             return dictionary;
         }
     }

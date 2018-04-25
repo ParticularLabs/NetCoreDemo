@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace EShop.UI.Controllers
+﻿namespace EShop.UI.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     public class ProductsController : Controller
     {
         public ActionResult Index()

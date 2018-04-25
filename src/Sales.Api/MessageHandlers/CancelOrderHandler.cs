@@ -1,11 +1,10 @@
-﻿using Sales.Internal;
-
-namespace Sales.Api.MessageHandlers
+﻿namespace Sales.Api.MessageHandlers
 {
     using System.Linq;
-    using Sales.Api.Data;
     using System.Threading.Tasks;
     using NServiceBus;
+    using Sales.Api.Data;
+    using Sales.Internal;
 
     public class CancelOrderHandler : IHandleMessages<CancelOrder>
     {
@@ -15,6 +14,7 @@ namespace Sales.Api.MessageHandlers
         {
             this.dbContext = dbContext;
         }
+
         public async Task Handle(CancelOrder message, IMessageHandlerContext context)
         {
             // Find Order and update the database.

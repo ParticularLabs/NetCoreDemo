@@ -1,6 +1,7 @@
 ﻿namespace Shipping.Api.MessageHandlers
 {
     using NServiceBus;
+
     public class OrderShipmentSagaData : ContainSagaData
     {
         public string OrderId { get; set; }

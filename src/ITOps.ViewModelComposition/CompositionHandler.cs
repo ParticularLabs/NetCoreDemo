@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ITOps.ViewModelComposition.Gateway
+﻿namespace ITOps.ViewModelComposition
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Routing;
+    using Microsoft.Extensions.DependencyInjection;
+
     public class CompositionHandler
     {
         public static async Task<(dynamic ViewModel, int StatusCode)> HandleRequest(HttpContext context)
@@ -26,17 +25,13 @@ namespace ITOps.ViewModelComposition.Gateway
             try
             {
                 foreach (var subscriber in interceptors.OfType<ISubscribeToViewModelCompositionEvent>())
-                {
                     subscriber.RegisterCallback(vm);
-                }
 
                 foreach (var handler in matching.OfType<IHandleRequests>())
-                {
                     pending.Add
                     (
                         handler.Handle(vm, routeData, request)
                     );
-                }
 
                 if (pending.Count == 0)
                 {

@@ -1,6 +1,4 @@
-﻿using Sales.Internal;
-
-namespace Sales.Api.MessageHandlers
+﻿namespace Sales.Api.MessageHandlers
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -8,6 +6,7 @@ namespace Sales.Api.MessageHandlers
     using Sales.Api.Data;
     using Sales.Api.Models;
     using Sales.Events;
+    using Sales.Internal;
 
     public class StoreOrderHandler : IHandleMessages<StoreOrder>
     {
@@ -17,33 +16,32 @@ namespace Sales.Api.MessageHandlers
         {
             this.dbContext = dbContext;
         }
+
         public async Task Handle(StoreOrder message, IMessageHandlerContext context)
         {
-            await dbContext.OrderDetails.AddAsync(new OrderDetail()
+            await dbContext.OrderDetails.AddAsync(new OrderDetail
             {
                 ProductId = message.ProductId,
                 OrderPlacedOn = message.OrderPlacedOn,
                 IsOrderAccepted = false,
                 OrderId = message.OrderId,
                 Price = GetPriceFor(message.ProductId)
-                
             }).ConfigureAwait(false);
             await dbContext.SaveChangesAsync().ConfigureAwait(false);
 
             // Publish event
-            await context.Publish(new OrderPlaced()
+            await context.Publish(new OrderPlaced
             {
                 OrderId = message.OrderId,
                 ProductId = message.ProductId
-
             }).ConfigureAwait(false);
         }
 
-        decimal GetPriceFor(int productId)
+        private decimal GetPriceFor(int productId)
         {
-           decimal price = dbContext.ProductPrices.Where(p => p.ProductId == productId)
-               .Select(productPrice => productPrice.Price).First();
-           return price;
+            var price = dbContext.ProductPrices.Where(p => p.ProductId == productId)
+                .Select(productPrice => productPrice.Price).First();
+            return price;
         }
     }
 }

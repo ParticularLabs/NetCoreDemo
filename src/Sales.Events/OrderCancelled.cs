@@ -1,7 +1,7 @@
-﻿using NServiceBus;
-
-namespace Sales.Events
+﻿namespace Sales.Events
 {
+    using NServiceBus;
+
     public class OrderCancelled : IEvent
     {
         public string OrderId { get; set; }

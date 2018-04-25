@@ -1,6 +1,4 @@
-﻿using Sales.Internal;
-
-namespace LoadGenerator
+﻿namespace LoadGenerator
 {
     using System;
     using System.Linq;
@@ -8,10 +6,11 @@ namespace LoadGenerator
     using System.Threading.Tasks;
     using ITOps.Shared;
     using NServiceBus;
+    using Sales.Internal;
 
-    class LoadGeneratorProgram
+    internal class LoadGeneratorProgram
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             Console.Title = "Load Generator";
 
@@ -38,7 +37,7 @@ namespace LoadGenerator
                 .ConfigureAwait(false);
         }
 
-        static async Task UILoop(MessageProducer producer)
+        private static async Task UILoop(MessageProducer producer)
         {
             while (true)
             {
@@ -64,13 +63,13 @@ namespace LoadGenerator
             }
         }
 
-        class MessageProducer
+        private class MessageProducer
         {
-            private IEndpointInstance endpoint;
             private int currentOrderId;
-            private bool running = true;
+            private readonly IEndpointInstance endpoint;
             private int messagesPerSecond = 1;
             private bool paused;
+            private bool running = true;
 
             public MessageProducer(IEndpointInstance endpoint)
             {
@@ -79,12 +78,9 @@ namespace LoadGenerator
 
             public async Task Run()
             {
-                while(running)
+                while (running)
                 {
-                    if (!paused)
-                    {
-                        await SendNextMessage().ConfigureAwait(false);
-                    }
+                    if (!paused) await SendNextMessage().ConfigureAwait(false);
 
                     var delay = 1000 / messagesPerSecond;
                     await Task.Delay(delay).ConfigureAwait(false);
@@ -124,15 +120,13 @@ namespace LoadGenerator
                 return Task.CompletedTask;
             }
 
-            Task SendNextMessage(bool output = true)
+            private Task SendNextMessage(bool output = true)
             {
                 var orderIdNumber = Interlocked.Increment(ref currentOrderId);
                 var orderId = "LoadGen-" + orderIdNumber;
                 var productId = (orderIdNumber + 2) % 3 + 1;
                 if (output)
-                {
                     Console.WriteLine($"Sending PlaceOrder message: OrderId '{orderId}', ProductId = {productId}");
-                }
                 return endpoint.Send(new PlaceOrder
                 {
                     OrderId = orderId,

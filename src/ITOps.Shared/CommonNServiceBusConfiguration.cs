@@ -2,18 +2,20 @@
 {
     using System;
     using Autofac;
+    using Marketing.Internal;
     using NServiceBus;
     using NServiceBus.Logging;
     using NServiceBus.Transport;
+    using Sales.Internal;
 
     public static class CommonNServiceBusConfiguration
     {
-        static ILog log = LogManager.GetLogger(typeof (CommonNServiceBusConfiguration));
+        private static readonly ILog log = LogManager.GetLogger(typeof(CommonNServiceBusConfiguration));
 
-        public static void ApplyCommonNServiceBusConfiguration(this EndpointConfiguration endpointConfiguration, 
-            IContainer autofacExternalContainer = null, bool enableMonitoring = true, Action<TransportExtensions<RabbitMQTransport>> bridgeConfigurator = null)
+        public static void ApplyCommonNServiceBusConfiguration(this EndpointConfiguration endpointConfiguration,
+            IContainer autofacExternalContainer = null, bool enableMonitoring = true,
+            Action<TransportExtensions<RabbitMQTransport>> bridgeConfigurator = null)
         {
-
             // Transport configuration
             var rabbitMqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoRabbitMQTransport");
 
@@ -41,20 +43,18 @@
             }
 
             if (autofacExternalContainer != null)
-            {
                 endpointConfiguration.UseContainer<AutofacBuilder>(
-                    customizations: customizations => { customizations.ExistingLifetimeScope(autofacExternalContainer); });
-            }
+                    customizations => { customizations.ExistingLifetimeScope(autofacExternalContainer); });
 
             endpointConfiguration.EnableInstallers();
 
             // JSON Serializer
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
-            
+
             if (enableMonitoring)
             {
                 endpointConfiguration.AuditProcessedMessagesTo("audit");
-                
+
                 // Enable Metrics Collection and Reporting
                 endpointConfiguration
                     .EnableMetrics()
@@ -65,15 +65,15 @@
             }
         }
 
-        static void ConfigureRouting<T>(TransportExtensions<T> transport) 
+        private static void ConfigureRouting<T>(TransportExtensions<T> transport)
             where T : TransportDefinition
         {
             var routing = transport.Routing();
-            routing.RouteToEndpoint(typeof(Sales.Internal.PlaceOrder), "Sales.Api");
-            routing.RouteToEndpoint(typeof(Sales.Internal.CancelOrder), "Sales.Api");
-            routing.RouteToEndpoint(typeof(Sales.Internal.StoreOrder), "Sales.Api");
-            routing.RouteToEndpoint(typeof(Sales.Internal.AcceptOrder), "Sales.Api");
-            routing.RouteToEndpoint(typeof(Marketing.Internal.RecordConsumerBehavior), "Marketing.Api");
+            routing.RouteToEndpoint(typeof(PlaceOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(CancelOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(StoreOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(AcceptOrder), "Sales.Api");
+            routing.RouteToEndpoint(typeof(RecordConsumerBehavior), "Marketing.Api");
 
             // For transports that do not support publish/subcribe natively, e.g. MSMQ, SqlTransport, call RegisterPublisher
         }

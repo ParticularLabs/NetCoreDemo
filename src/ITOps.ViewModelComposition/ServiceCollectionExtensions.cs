@@ -1,15 +1,16 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-
-namespace ITOps.ViewModelComposition
+﻿namespace ITOps.ViewModelComposition
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class ServiceCollectionExtensions
     {
-        public static void AddViewModelComposition(this IServiceCollection services, string assemblySearchPattern = "*ViewModelComposition*.dll")
+        public static void AddViewModelComposition(this IServiceCollection services,
+            string assemblySearchPattern = "*ViewModelComposition*.dll")
         {
             var fileNames = Directory.GetFiles(AppContext.BaseDirectory, assemblySearchPattern);
 
@@ -21,18 +22,15 @@ namespace ITOps.ViewModelComposition
                     .Where(t =>
                     {
                         var typeInfo = t.GetTypeInfo();
-                        return !typeInfo.IsInterface 
-                            && !typeInfo.IsAbstract 
-                            && typeof(IInterceptRoutes).IsAssignableFrom(t);
+                        return !typeInfo.IsInterface
+                               && !typeInfo.IsAbstract
+                               && typeof(IInterceptRoutes).IsAssignableFrom(t);
                     });
 
                 types.AddRange(temp);
             }
 
-            foreach (var type in types)
-            {
-                services.AddSingleton(typeof(IInterceptRoutes), type);
-            }
+            foreach (var type in types) services.AddSingleton(typeof(IInterceptRoutes), type);
         }
     }
 }

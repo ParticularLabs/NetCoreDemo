@@ -12,6 +12,5 @@
 
         public DbSet<ProductDetails> ProductDetails { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
-
     }
 }

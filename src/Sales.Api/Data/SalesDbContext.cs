@@ -1,5 +1,4 @@
-﻿
-namespace Sales.Api.Data
+﻿namespace Sales.Api.Data
 {
     using Microsoft.EntityFrameworkCore;
     using Sales.Api.Models;

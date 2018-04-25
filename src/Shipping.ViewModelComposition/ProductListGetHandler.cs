@@ -1,21 +1,20 @@
-﻿using Marketing.Events.ViewModelComposition;
-
-namespace Shipping.ViewModelComposition
+﻿namespace Shipping.ViewModelComposition
 {
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
     using ITOps.ViewModelComposition;
     using ITOps.ViewModelComposition.Json;
+    using Marketing.Events.ViewModelComposition;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Routing;
 
-    class ProductListGetHandler : ISubscribeToViewModelCompositionEvent
+    internal class ProductListGetHandler : ISubscribeToViewModelCompositionEvent
     {
         public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
         {
-            var controller = (string)routeData.Values["controller"];
-            var action = (string)routeData.Values["action"];
+            var controller = (string) routeData.Values["controller"];
+            var action = (string) routeData.Values["action"];
 
             return HttpMethods.IsGet(httpVerb)
                    && controller.ToLowerInvariant() == "products"
@@ -37,7 +36,7 @@ namespace Shipping.ViewModelComposition
                     var product = eventData.OrdersDictionary[productId];
 
                     // For each product, fill in the price information. 
-                    var stockInfo = ((IEnumerable<dynamic>)productStockList).First(p => p.productId == productId);
+                    var stockInfo = ((IEnumerable<dynamic>) productStockList).First(p => p.productId == productId);
                     product.inStock = stockInfo.inStock;
                 }
             });

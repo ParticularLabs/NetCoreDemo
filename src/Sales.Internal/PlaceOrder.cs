@@ -1,7 +1,7 @@
-﻿using NServiceBus;
-
-namespace Sales.Internal
+﻿namespace Sales.Internal
 {
+    using NServiceBus;
+
     public class PlaceOrder : ICommand
     {
         public string OrderId { get; set; }
