@@ -1,20 +1,20 @@
 ﻿namespace Sales.ViewModelComposition
 {
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
-    using EShop.Messages.ViewModelCompositionEvents;
     using ITOps.ViewModelComposition;
     using ITOps.ViewModelComposition.Json;
+    using Marketing.Events.ViewModelComposition;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Routing;
 
-    class ProductListGetHandler : ISubscribeToViewModelCompositionEvent
+    internal class ProductListGetHandler : ISubscribeToViewModelCompositionEvent
     {
         public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
         {
-            var controller = (string)routeData.Values["controller"];
-            var action = (string)routeData.Values["action"];
+            var controller = (string) routeData.Values["controller"];
+            var action = (string) routeData.Values["action"];
 
             return HttpMethods.IsGet(httpVerb)
                    && controller.ToLowerInvariant() == "products"
@@ -36,7 +36,7 @@
                     var product = eventData.OrdersDictionary[productId];
 
                     // For each product, fill in the price information. 
-                    var productPrice = ((IEnumerable<dynamic>)productList).First(p => p.productId == productId);
+                    var productPrice = ((IEnumerable<dynamic>) productList).First(p => p.productId == productId);
                     product.price = productPrice.price;
                 }
             });

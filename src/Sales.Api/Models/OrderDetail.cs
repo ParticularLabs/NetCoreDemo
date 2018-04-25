@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Sales.Api.Models
+﻿namespace Sales.Api.Models
 {
+    using System;
+
     public class OrderDetail
     {
         public int Id { get; set; }

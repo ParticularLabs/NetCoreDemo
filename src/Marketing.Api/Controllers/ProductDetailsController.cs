@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Marketing.Api.Controllers
+﻿namespace Marketing.Api.Controllers
 {
+    using System;
     using System.Linq;
     using Marketing.Api.Data;
     using Marketing.Api.Models;
@@ -10,7 +9,7 @@ namespace Marketing.Api.Controllers
     [Route("product")]
     public class ProductDetailsController : Controller
     {
-        private readonly ProductDetailsDbContext context;
+        readonly ProductDetailsDbContext context;
 
         public ProductDetailsController(ProductDetailsDbContext context)
         {
@@ -23,7 +22,8 @@ namespace Marketing.Api.Controllers
                     ProductId = 1,
                     Name = "Apple iPhone X",
                     Description = "5.8-inch display, Space Gray, 256GB",
-                    ImageUrl = "https://www.t-mobile.com/content/dam/t-mobile/en-p/cell-phones/apple/apple-iphone-x/silver/Apple-iPhoneX-Silver-1-3x.jpg"
+                    ImageUrl =
+                        "https://www.t-mobile.com/content/dam/t-mobile/en-p/cell-phones/apple/apple-iphone-x/silver/Apple-iPhoneX-Silver-1-3x.jpg"
                 });
 
                 context.ProductDetails.Add(new ProductDetails
@@ -54,6 +54,7 @@ namespace Marketing.Api.Controllers
             {
                 return NotFound();
             }
+
             return new ObjectResult(item);
         }
 
@@ -66,7 +67,8 @@ namespace Marketing.Api.Controllers
                 return NotFound();
             }
 
-            var orderIdList = orderIds.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => s).ToList();
+            var orderIdList = orderIds.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => s)
+                .ToList();
 
             var productsList = context.OrderDetails.Where(order => orderIdList.Contains(order.OrderId))
                 .Select(order => order.ProductId).Distinct().ToList();

@@ -1,16 +1,15 @@
-﻿using NServiceBus.Logging;
-
-namespace Marketing.Api.MessageHandlers
+﻿namespace Marketing.Api.MessageHandlers
 {
     using System;
     using System.Threading.Tasks;
+    using Marketing.Internal;
     using NServiceBus;
-    using EShop.Messages.Commands;
+    using NServiceBus.Logging;
 
     public class RecordConsumerBehaviorHandler : IHandleMessages<RecordConsumerBehavior>
     {
-        static ILog log = LogManager.GetLogger<RecordConsumerBehaviorHandler>();
-        static Random random = new Random();
+        static readonly ILog log = LogManager.GetLogger<RecordConsumerBehaviorHandler>();
+        static readonly Random random = new Random();
 
         public async Task Handle(RecordConsumerBehavior message, IMessageHandlerContext context)
         {

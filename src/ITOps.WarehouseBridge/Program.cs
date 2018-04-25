@@ -1,15 +1,14 @@
-﻿using NServiceBus.Configuration.AdvancedExtensibility;
-using NServiceBus.Serialization;
-using NServiceBus.Settings;
-
-namespace ITOps.WarehouseBridge
+﻿namespace ITOps.WarehouseBridge
 {
     using System;
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Bridge;
+    using NServiceBus.Configuration.AdvancedExtensibility;
+    using NServiceBus.Serialization;
+    using NServiceBus.Settings;
 
-    class Program
+    internal class Program
     {
         static async Task Main(string[] args)
         {
@@ -28,17 +27,18 @@ namespace ITOps.WarehouseBridge
             }
 
             var bridgeConfiguration = Bridge
-                .Between<AzureStorageQueueTransport>(endpointName: "bridge-warehouse", customization: transport =>
+                .Between<AzureStorageQueueTransport>("bridge-warehouse", transport =>
                 {
                     transport.ConnectionString(asqConnectionString);
                     transport.SerializeMessageWrapperWith<NewtonsoftSerializer>();
 
                     // Workaround required for ASQ
                     var settings = transport.GetSettings();
-                    var serializer = Tuple.Create(new NewtonsoftSerializer() as SerializationDefinition, new SettingsHolder());
+                    var serializer = Tuple.Create(new NewtonsoftSerializer() as SerializationDefinition,
+                        new SettingsHolder());
                     settings.Set("MainSerializer", serializer);
                 })
-                .And<RabbitMQTransport>(endpointName: "bridge-shipping", customization: transport =>
+                .And<RabbitMQTransport>("bridge-shipping", transport =>
                 {
                     transport.ConnectionString(rabbitMqConnectionString);
                     transport.UseConventionalRoutingTopology();
@@ -57,7 +57,6 @@ namespace ITOps.WarehouseBridge
 
             await bridge.Stop()
                 .ConfigureAwait(false);
-
         }
 
         static void UILoop()

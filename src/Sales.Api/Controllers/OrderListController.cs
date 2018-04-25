@@ -1,14 +1,13 @@
 ﻿namespace Sales.Api.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Sales.Api.Models;
     using System.Linq;
+    using Microsoft.AspNetCore.Mvc;
     using Sales.Api.Data;
 
     [Route("order")]
     public class OrderListController : Controller
     {
-        private readonly SalesDbContext context;
+        readonly SalesDbContext context;
 
         public OrderListController(SalesDbContext context)
         {
@@ -21,6 +20,4 @@
             return new ObjectResult(item);
         }
     }
-
 }
-

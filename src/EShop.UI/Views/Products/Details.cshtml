@@ -1,35 +1,34 @@
-﻿
-@{
-    ViewData["Title"] = @Model.ProductName + " - Product Details";
+﻿@{
+    ViewData["Title"] = Model.ProductName + " - Product Details";
 }
 
 <div class="container-fluid">
     <form action="/products/buyitem/@Model.ProductId" method="post">
-    <div class="row">
-        <div class="col-3">
-            <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.ProductName" />
-        </div>
-        <div class="col-6">
-            <h1>@Model.ProductName</h1>
-            <p>Price: $@Model.Price.ToString("f2") + Free Shipping</p>
+        <div class="row">
+            <div class="col-3">
+                <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.ProductName"/>
+            </div>
+            <div class="col-6">
+                <h1>@Model.ProductName</h1>
+                <p>Price: $@Model.Price.ToString("f2") + Free Shipping</p>
 
-            <p>@Model.ProductDescription</p>
+                <p>@Model.ProductDescription</p>
 
+            </div>
+            <div class="col-3 buy-widget">
+                <p class="price">$@Model.Price.ToString("f2")</p>
+                @if (Model.InStock)
+                {
+                    <p class="stock in-stock">In Stock</p>
+                    <p>
+                        <input type="submit" class="btn btn-success" value="Buy Now"/>
+                    </p>
+                }
+                else
+                {
+                    <p class="stock out-of-stock">Out of Stock</p>
+                }
+            </div>
         </div>
-        <div class="col-3 buy-widget">
-            <p class="price">$@Model.Price.ToString("f2")</p>
-            @if (Model.InStock)
-            {
-                <p class="stock in-stock">In Stock</p>
-            <p>
-                <input type="submit" class="btn btn-success" value="Buy Now" />
-            </p>
-            }
-            else
-            {
-                <p class="stock out-of-stock">Out of Stock</p>
-            }
-        </div>
-    </div>
     </form>
 </div>

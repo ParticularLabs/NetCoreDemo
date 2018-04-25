@@ -1,16 +1,16 @@
-﻿using NServiceBus.Logging;
-
-namespace Billing.Api.MessageHandlers
+﻿namespace Billing.Api.MessageHandlers
 {
     using System;
     using System.Threading.Tasks;
+    using Billing.Events;
     using NServiceBus;
-    using EShop.Messages.Events;
-    
+    using NServiceBus.Logging;
+    using Sales.Events;
+
     public class OrderAcceptedHandler : IHandleMessages<OrderAccepted>
     {
-        static ILog log = LogManager.GetLogger<OrderAcceptedHandler>();
-        static Random random = new Random();
+        static readonly ILog log = LogManager.GetLogger<OrderAcceptedHandler>();
+        static readonly Random random = new Random();
 
         public async Task Handle(OrderAccepted message, IMessageHandlerContext context)
         {
@@ -21,14 +21,14 @@ namespace Billing.Api.MessageHandlers
 
             await ThisIsntGoingToScaleWell();
 
-            await context.Publish(new OrderBilled()
+            await context.Publish(new OrderBilled
             {
                 OrderId = message.OrderId,
                 ProductId = message.ProductId
             });
         }
 
-        private Task ThisIsntGoingToScaleWell()
+        Task ThisIsntGoingToScaleWell()
         {
             return Task.Delay(random.Next(250, 350));
         }

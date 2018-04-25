@@ -1,7 +1,8 @@
-﻿namespace EShop.Messages.Events
+﻿namespace Sales.Events
 {
     using NServiceBus;
-    public class OrderAccepted : IEvent
+
+    public class OrderPlaced : IEvent
     {
         public string OrderId { get; set; }
         public int ProductId { get; set; }

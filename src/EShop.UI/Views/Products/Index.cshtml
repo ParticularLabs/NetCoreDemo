@@ -10,29 +10,31 @@
         <div class="row">
 
             <div class="col-md">
-            <div class="card-deck">
-            @foreach (dynamic product in @Model.Products)
-            { 
-                <div class="card text-center">
-                        <div class="card-body text-center">
-                            <p><img class=" img-fluid" src="@product.imageUrl" width="120" height="140" alt="card image"></p>
+                <div class="card-deck">
+                    @foreach (var product in Model.Products)
+                    {
+                        <div class="card text-center">
+                            <div class="card-body text-center">
+                                <p>
+                                    <img class=" img-fluid" src="@product.imageUrl" width="120" height="140" alt="card image">
+                                </p>
+                            </div>
+                            <h4 class="card-title">@product.name</h4>
+                            <h5>$@product.price.ToString("f2")</h5>
+                            <div class="card-footer">
+                                @if (product.inStock)
+                                {
+                                    <p class="badge-pill badge-info">In Stock</p>
+                                }
+                                else
+                                {
+                                    <p class="badge-pill badge-danger">Out of Stock</p>
+                                }
+                                <a href="/products/details/@product.productId" class="btn btn-primary">Details</a>
+                            </div>
                         </div>
-                        <h4 class="card-title">@product.name</h4>
-                        <h5>$@product.price.ToString("f2")</h5>
-                        <div class="card-footer">
-                        @if (@product.inStock)
-                        {
-                            <p class="badge-pill badge-info">In Stock</p>
-                        }
-                        else
-                        {
-                            <p class="badge-pill badge-danger">Out of Stock</p>
-                        }
-                            <a href="/products/details/@product.productId" class="btn btn-primary">Details</a>
-                        </div>
+                    }
                 </div>
-            }
-            </div>
             </div>
         </div>
     </div>

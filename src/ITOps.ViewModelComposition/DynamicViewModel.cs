@@ -1,26 +1,28 @@
 ﻿namespace ITOps.ViewModelComposition
 {
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Routing;
     using System;
     using System.Collections.Generic;
     using System.Dynamic;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Routing;
 
     public class DynamicViewModel : DynamicObject
     {
-        // Keep track of the routeData and the query collection that's being passed in.
-        private readonly RouteData routeData;
-        private readonly IQueryCollection query;
-        
-        // To extend and keep track of properties as part of the dynamic object.
-        private IDictionary<string, object> properties = new Dictionary<string, object>();
+        // Needed for registering parameterized callbacks from subscribers. 
+        public delegate Task EventHandler<TEvent>(dynamic pageViewModel, TEvent @event, RouteData routeData,
+            IQueryCollection query);
 
         // Keep a list of subcribers of the same route interested in getting called when events are raised.
-        private IDictionary<Type, List<EventHandler<object>>> callbackRegistrations = new Dictionary<Type, List<EventHandler<object>>>();
+        readonly IDictionary<Type, List<EventHandler<object>>> callbackRegistrations = new Dictionary<Type, List<EventHandler<object>>>();
 
-        // Needed for registering parameterized callbacks from subscribers. 
-        public delegate Task EventHandler<TEvent>(dynamic pageViewModel, TEvent @event, RouteData routeData, IQueryCollection query);
+        // To extend and keep track of properties as part of the dynamic object.
+        readonly IDictionary<string, object> properties = new Dictionary<string, object>();
+
+        readonly IQueryCollection query;
+
+        // Keep track of the routeData and the query collection that's being passed in.
+        readonly RouteData routeData;
 
         public DynamicViewModel(RouteData routeData, IQueryCollection query)
         {
@@ -36,12 +38,13 @@
                 callbackRegistrations.Add(typeof(TEvent), handlers);
             }
 
-            handlers.Add((pageViewModel, @event, routeData, query) => handler(pageViewModel, (TEvent)@event, routeData, query));
+            handlers.Add((pageViewModel, @event, routeData, query) =>
+                handler(pageViewModel, (TEvent) @event, routeData, query));
         }
 
         public void ClearCallbackRegistrations() => callbackRegistrations.Clear();
 
-        private Task RaiseEventAsync(object @event)
+        Task RaiseEventAsync(object @event)
         {
             if (callbackRegistrations.TryGetValue(@event.GetType(), out var handlers))
             {

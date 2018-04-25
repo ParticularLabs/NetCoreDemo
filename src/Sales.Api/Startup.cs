@@ -1,17 +1,16 @@
-﻿using System;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-
-namespace Sales.Api
+﻿namespace Sales.Api
 {
+    using System;
+    using Autofac;
+    using Autofac.Extensions.DependencyInjection;
+    using ITOps.Shared;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Sales.Api.Data;
-    using ITOps.Shared;
     using NServiceBus;
+    using Sales.Api.Data;
 
     public class Startup
     {
@@ -58,17 +57,10 @@ namespace Sales.Api
         IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
         {
             var endpointConfiguration = new EndpointConfiguration("Sales.Api");
-            endpointConfiguration.ApplyCommonNServiceBusConfiguration();
-            endpointConfiguration.UseContainer<AutofacBuilder>(
-                customizations: customizations =>
-                {
-                    customizations.ExistingLifetimeScope(container);
-                });
+            endpointConfiguration.ApplyCommonNServiceBusConfiguration(container);
 
             // Configure saga audit plugin
-            endpointConfiguration.AuditSagaStateChanges(
-                serviceControlQueue: "Particular.ServiceControl");
-
+            endpointConfiguration.AuditSagaStateChanges("Particular.ServiceControl");
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
     }

@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EShop.Messages\EShop.Messages.csproj" />
     <ProjectReference Include="..\ITOps.ViewModelComposition.Mvc\ITOps.ViewModelComposition.Mvc.csproj" />
     <ProjectReference Include="..\ITOps.ViewModelComposition\ITOps.ViewModelComposition.csproj" />
+    <ProjectReference Include="..\Marketing.Events\Marketing.Events.csproj" />
+    <ProjectReference Include="..\Sales.Events\Sales.Events.csproj" />
+    <ProjectReference Include="..\Sales.Internal\Sales.Internal.csproj" />
   </ItemGroup>
 
 </Project>

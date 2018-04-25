@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NServiceBus;
-
-namespace EShop.Messages.Commands
+﻿namespace Sales.Internal
 {
+    using NServiceBus;
+
     public class AcceptOrder : ICommand
     {
         public string OrderId { get; set; }

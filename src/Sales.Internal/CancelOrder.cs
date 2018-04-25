@@ -1,4 +1,4 @@
-﻿namespace EShop.Messages.Commands
+﻿namespace Sales.Internal
 {
     using NServiceBus;
 

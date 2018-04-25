@@ -1,7 +1,8 @@
-﻿namespace EShop.Messages.Commands
+﻿namespace Sales.Internal
 {
     using System;
     using NServiceBus;
+
     public class StoreOrder : ICommand
     {
         public string OrderId { get; set; }

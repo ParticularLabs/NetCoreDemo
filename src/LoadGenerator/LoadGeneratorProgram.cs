@@ -4,11 +4,11 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using EShop.Messages.Commands;
     using ITOps.Shared;
     using NServiceBus;
+    using Sales.Internal;
 
-    class LoadGeneratorProgram
+    internal class LoadGeneratorProgram
     {
         static async Task Main(string[] args)
         {
@@ -65,11 +65,11 @@
 
         class MessageProducer
         {
-            private IEndpointInstance endpoint;
-            private int currentOrderId;
-            private bool running = true;
-            private int messagesPerSecond = 1;
-            private bool paused;
+            readonly IEndpointInstance endpoint;
+            int currentOrderId;
+            int messagesPerSecond = 1;
+            bool paused;
+            bool running = true;
 
             public MessageProducer(IEndpointInstance endpoint)
             {
@@ -78,7 +78,7 @@
 
             public async Task Run()
             {
-                while(running)
+                while (running)
                 {
                     if (!paused)
                     {
@@ -132,6 +132,7 @@
                 {
                     Console.WriteLine($"Sending PlaceOrder message: OrderId '{orderId}', ProductId = {productId}");
                 }
+
                 return endpoint.Send(new PlaceOrder
                 {
                     OrderId = orderId,

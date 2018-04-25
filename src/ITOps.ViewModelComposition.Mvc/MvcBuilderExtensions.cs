@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-
-namespace ITOps.ViewModelComposition.Mvc
+﻿namespace ITOps.ViewModelComposition.Mvc
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class MvcBuilderExtensions
     {
-        public static IMvcBuilder AddViewModelCompositionMvcSupport(this IMvcBuilder builder, string assemblySearchPattern = "*ViewModelComposition*.dll")
+        public static IMvcBuilder AddViewModelCompositionMvcSupport(this IMvcBuilder builder,
+            string assemblySearchPattern = "*ViewModelComposition*.dll")
         {
             var fileNames = Directory.GetFiles(AppContext.BaseDirectory, assemblySearchPattern);
 
@@ -23,19 +24,16 @@ namespace ITOps.ViewModelComposition.Mvc
                     {
                         var typeInfo = t.GetTypeInfo();
                         return !typeInfo.IsInterface
-                            && !typeInfo.IsAbstract
-                            && typeof(IHandleResult).IsAssignableFrom(t);
+                               && !typeInfo.IsAbstract
+                               && typeof(IHandleResult).IsAssignableFrom(t);
                     });
 
                 types.AddRange(temp);
             }
 
-            foreach (var type in types)
-            {
-                builder.Services.AddSingleton(typeof(IHandleResult), type);
-            }
+            foreach (var type in types) builder.Services.AddSingleton(typeof(IHandleResult), type);
 
-            builder.Services.Configure<MvcOptions>(options => 
+            builder.Services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(typeof(CompositionActionFilter));
             });

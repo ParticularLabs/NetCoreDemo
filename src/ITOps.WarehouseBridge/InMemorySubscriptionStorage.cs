@@ -6,11 +6,15 @@ using NServiceBus.Extensibility;
 using NServiceBus.Unicast.Subscriptions;
 using NServiceBus.Unicast.Subscriptions.MessageDrivenSubscriptions;
 
-class InMemorySubscriptionStorage : ISubscriptionStorage
+internal class InMemorySubscriptionStorage : ISubscriptionStorage
 {
+    readonly ConcurrentDictionary<MessageType, ConcurrentDictionary<string, Subscriber>> storage =
+        new ConcurrentDictionary<MessageType, ConcurrentDictionary<string, Subscriber>>();
+
     public Task Subscribe(Subscriber subscriber, MessageType messageType, ContextBag context)
     {
-        var dict = storage.GetOrAdd(messageType, type => new ConcurrentDictionary<string, Subscriber>(StringComparer.OrdinalIgnoreCase));
+        var dict = storage.GetOrAdd(messageType,
+            type => new ConcurrentDictionary<string, Subscriber>(StringComparer.OrdinalIgnoreCase));
 
         dict.AddOrUpdate(subscriber.TransportAddress, _ => subscriber, (_, __) => subscriber);
         return Task.CompletedTask;
@@ -22,21 +26,20 @@ class InMemorySubscriptionStorage : ISubscriptionStorage
         {
             dict.TryRemove(subscriber.TransportAddress, out var _);
         }
+
         return Task.CompletedTask;
     }
 
-    public Task<IEnumerable<Subscriber>> GetSubscriberAddressesForMessage(IEnumerable<MessageType> messageTypes, ContextBag context)
+    public Task<IEnumerable<Subscriber>> GetSubscriberAddressesForMessage(IEnumerable<MessageType> messageTypes,
+        ContextBag context)
     {
         var result = new HashSet<Subscriber>();
         foreach (var m in messageTypes)
-        {
             if (storage.TryGetValue(m, out var list))
             {
                 result.UnionWith(list.Values);
             }
-        }
-        return Task.FromResult((IEnumerable<Subscriber>)result);
-    }
 
-    ConcurrentDictionary<MessageType, ConcurrentDictionary<string, Subscriber>> storage = new ConcurrentDictionary<MessageType, ConcurrentDictionary<string, Subscriber>>();
+        return Task.FromResult((IEnumerable<Subscriber>) result);
+    }
 }

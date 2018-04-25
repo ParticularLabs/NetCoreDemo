@@ -1,19 +1,16 @@
-﻿using ITOps.ViewModelComposition.Gateway;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Routing;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ITOps.ViewModelComposition.Mvc
+﻿namespace ITOps.ViewModelComposition.Mvc
 {
-    class CompositionActionFilter : IAsyncResultFilter
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
+
+    internal class CompositionActionFilter : IAsyncResultFilter
     {
         IEnumerable<IHandleResult> resultHandlers;
 
-        public CompositionActionFilter( IEnumerable<IHandleResult> resultHandlers )
+        public CompositionActionFilter(IEnumerable<IHandleResult> resultHandlers)
         {
             this.resultHandlers = resultHandlers;
         }
@@ -21,9 +18,9 @@ namespace ITOps.ViewModelComposition.Mvc
         public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
             (var viewModel, var statusCode) = await CompositionHandler.HandleRequest(context.HttpContext);
-            
+
             DefaultHandler();
-            
+
             await next();
 
             void DefaultHandler()

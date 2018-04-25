@@ -1,13 +1,13 @@
-﻿using ITOps.Shared;
-using ITOps.ViewModelComposition;
-using ITOps.ViewModelComposition.Mvc;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using NServiceBus;
-
-namespace EShop.UI
+﻿namespace EShop.UI
 {
+    using ITOps.Shared;
+    using ITOps.ViewModelComposition;
+    using ITOps.ViewModelComposition.Mvc;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.DependencyInjection;
+    using NServiceBus;
+
     public class Startup
     {
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -31,8 +31,8 @@ namespace EShop.UI
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Products}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Products}/{action=Index}/{id?}");
             });
 
             app.UseStaticFiles();

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Orders";
 }
 
@@ -13,47 +12,51 @@
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
-                
-                        <table class="table table-striped">
-                            <thead>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Order#</th>
+                        <th scope="col" class="text-center">Order Placed</th>
+                        <th scope="col" class="text-right">Price</th>
+                        <th> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var order in Model.Orders)
+                    {
+                        <form action="/orders/cancelorder/@order.orderId" method="post">
                             <tr>
-                                <th scope="col"> </th>
-                                <th scope="col">Product</th>
-                                <th scope="col">Order#</th>
-                                <th scope="col" class="text-center">Order Placed</th>
-                                <th scope="col" class="text-right">Price</th>
-                                <th> </th>
+                                <td style="height: 100px; width: 70px;">
+                                    <img src="@order.imageUrl" style="max-height: 100%; max-width: 100%"/>
+                                </td>
+                                <td>@order.name</td>
+                                <td>@order.orderId</td>
+                                <td>@order.orderPlacedOn</td>
+                                <td class="text-right">$@order.price</td>
+                                <td class="text-right">
+                                    @if (!order.isOrderAccepted && !order.isOrderCancelled)
+                                    {
+                                        <input type="submit" class="btn btn-danger" value="Cancel Order"/>
+                                    }
+                                    @if (order.isOrderCancelled)
+                                    {
+                                        <span class="label label-danger">Cancelled</span>
+                                    }
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (dynamic order in @Model.Orders)
-                                {
-                                 <form action="/orders/cancelorder/@order.orderId" method="post">
-                                    <tr>
-                                        <td style="width: 70px;height:100px"><img src="@order.imageUrl" style="max-height:100%; max-width:100%" /> </td>
-                                        <td>@order.name</td>
-                                        <td>@order.orderId</td>
-                                        <td>@order.orderPlacedOn</td>
-                                        <td class="text-right">$@order.price</td>
-                                        <td class="text-right">
-                                            @if (!order.isOrderAccepted && !order.isOrderCancelled)
-    {
-                                        <input type="submit" class="btn btn-danger" value="Cancel Order" />
-}
-                                            @if (order.isOrderCancelled)
-    {
-                                                <span class="label label-danger">Cancelled</span>
-}
-                                        </td>
-                                    </tr>
-                                </form>
-                                }
-                            </tbody>
-                        </table>
+                        </form>
+                    }
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <p><a class="btn btn-primary" href="/products">Keep shopping</a></p>
-        
+        <p>
+            <a class="btn btn-primary" href="/products">Keep shopping</a>
+        </p>
+
     </div>
 </div>

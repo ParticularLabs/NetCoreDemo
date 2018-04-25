@@ -1,6 +1,6 @@
 {
   "profiles": {
-      "Sales.Api": {
+    "Sales.Api": {
       "commandName": "Project",
       "launchBrowser": false,
       "environmentVariables": {

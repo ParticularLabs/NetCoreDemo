@@ -1,13 +1,10 @@
-﻿body {
-  padding-top: 5rem;
-}
+﻿body { padding-top: 5rem; }
 
 .buy-widget {
     border: solid 1px #ccc;
     border-radius: 3px;
-    text-align: center;
     padding: 1em;
-
+    text-align: center;
 }
 
 .buy-widget .price {
@@ -20,10 +17,6 @@
     font-weight: bold;
 }
 
-.buy-widget .in-stock {
-    color: #25873B;
-}
+.buy-widget .in-stock { color: #25873B; }
 
-.buy-widget .out-of-stock {
-    color: #C72A39;
-}
+.buy-widget .out-of-stock { color: #C72A39; }
