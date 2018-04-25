@@ -16,7 +16,10 @@
                 // Remove the assembly information for all of the enclosed types, because the message types are being
                 // declared locally. This is to avoid having to include the dll that contains the message schema as a reference.
                 var messageType = enclosedTypes[i].Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries);
-                if (messageType.Length > 0) enclosedTypes[i] = messageType[0];
+                if (messageType.Length > 0)
+                {
+                    enclosedTypes[i] = messageType[0];
+                }
             }
 
             context.Headers[Headers.EnclosedMessageTypes] = string.Join(";", enclosedTypes);

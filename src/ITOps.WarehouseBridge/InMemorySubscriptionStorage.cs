@@ -8,7 +8,7 @@ using NServiceBus.Unicast.Subscriptions.MessageDrivenSubscriptions;
 
 internal class InMemorySubscriptionStorage : ISubscriptionStorage
 {
-    private readonly ConcurrentDictionary<MessageType, ConcurrentDictionary<string, Subscriber>> storage =
+    readonly ConcurrentDictionary<MessageType, ConcurrentDictionary<string, Subscriber>> storage =
         new ConcurrentDictionary<MessageType, ConcurrentDictionary<string, Subscriber>>();
 
     public Task Subscribe(Subscriber subscriber, MessageType messageType, ContextBag context)
@@ -22,7 +22,11 @@ internal class InMemorySubscriptionStorage : ISubscriptionStorage
 
     public Task Unsubscribe(Subscriber subscriber, MessageType messageType, ContextBag context)
     {
-        if (storage.TryGetValue(messageType, out var dict)) dict.TryRemove(subscriber.TransportAddress, out var _);
+        if (storage.TryGetValue(messageType, out var dict))
+        {
+            dict.TryRemove(subscriber.TransportAddress, out var _);
+        }
+
         return Task.CompletedTask;
     }
 
@@ -32,7 +36,10 @@ internal class InMemorySubscriptionStorage : ISubscriptionStorage
         var result = new HashSet<Subscriber>();
         foreach (var m in messageTypes)
             if (storage.TryGetValue(m, out var list))
+            {
                 result.UnionWith(list.Values);
+            }
+
         return Task.FromResult((IEnumerable<Subscriber>) result);
     }
 }

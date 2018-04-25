@@ -8,8 +8,8 @@
 
     public class RecordConsumerBehaviorHandler : IHandleMessages<RecordConsumerBehavior>
     {
-        private static readonly ILog log = LogManager.GetLogger<RecordConsumerBehaviorHandler>();
-        private static readonly Random random = new Random();
+        static readonly ILog log = LogManager.GetLogger<RecordConsumerBehaviorHandler>();
+        static readonly Random random = new Random();
 
         public async Task Handle(RecordConsumerBehavior message, IMessageHandlerContext context)
         {

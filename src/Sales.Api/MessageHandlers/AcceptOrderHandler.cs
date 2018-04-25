@@ -9,7 +9,7 @@
 
     public class AcceptOrderHandler : IHandleMessages<AcceptOrder>
     {
-        private readonly SalesDbContext dbContext;
+        readonly SalesDbContext dbContext;
 
         public AcceptOrderHandler(SalesDbContext dbContext)
         {

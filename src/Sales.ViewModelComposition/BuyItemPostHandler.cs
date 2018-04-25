@@ -10,8 +10,8 @@
 
     public class BuyItemPostHandler : IHandleRequests
     {
-        private static int orderIdCounter;
-        private readonly IMessageSession session;
+        static int orderIdCounter;
+        readonly IMessageSession session;
 
         public BuyItemPostHandler(IMessageSession messageSession)
         {

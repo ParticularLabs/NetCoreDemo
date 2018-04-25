@@ -9,8 +9,8 @@
 
     public class ItemRestockedHandler : IHandleMessages<ItemRestocked>
     {
-        private static readonly ILog log = LogManager.GetLogger<ItemRestocked>();
-        private readonly StockItemDbContext dbContext;
+        static readonly ILog log = LogManager.GetLogger<ItemRestocked>();
+        readonly StockItemDbContext dbContext;
 
         public ItemRestockedHandler(StockItemDbContext dbContext)
         {

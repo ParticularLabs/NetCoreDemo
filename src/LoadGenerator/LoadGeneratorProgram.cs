@@ -10,7 +10,7 @@
 
     internal class LoadGeneratorProgram
     {
-        private static async Task Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.Title = "Load Generator";
 
@@ -37,7 +37,7 @@
                 .ConfigureAwait(false);
         }
 
-        private static async Task UILoop(MessageProducer producer)
+        static async Task UILoop(MessageProducer producer)
         {
             while (true)
             {
@@ -63,13 +63,13 @@
             }
         }
 
-        private class MessageProducer
+        class MessageProducer
         {
-            private int currentOrderId;
-            private readonly IEndpointInstance endpoint;
-            private int messagesPerSecond = 1;
-            private bool paused;
-            private bool running = true;
+            readonly IEndpointInstance endpoint;
+            int currentOrderId;
+            int messagesPerSecond = 1;
+            bool paused;
+            bool running = true;
 
             public MessageProducer(IEndpointInstance endpoint)
             {
@@ -80,7 +80,10 @@
             {
                 while (running)
                 {
-                    if (!paused) await SendNextMessage().ConfigureAwait(false);
+                    if (!paused)
+                    {
+                        await SendNextMessage().ConfigureAwait(false);
+                    }
 
                     var delay = 1000 / messagesPerSecond;
                     await Task.Delay(delay).ConfigureAwait(false);
@@ -120,13 +123,16 @@
                 return Task.CompletedTask;
             }
 
-            private Task SendNextMessage(bool output = true)
+            Task SendNextMessage(bool output = true)
             {
                 var orderIdNumber = Interlocked.Increment(ref currentOrderId);
                 var orderId = "LoadGen-" + orderIdNumber;
                 var productId = (orderIdNumber + 2) % 3 + 1;
                 if (output)
+                {
                     Console.WriteLine($"Sending PlaceOrder message: OrderId '{orderId}', ProductId = {productId}");
+                }
+
                 return endpoint.Send(new PlaceOrder
                 {
                     OrderId = orderId,

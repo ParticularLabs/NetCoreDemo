@@ -9,8 +9,8 @@
 
     public class OrderPlacedHandler : IHandleMessages<OrderPlaced>
     {
-        private static readonly ILog log = LogManager.GetLogger<OrderPlacedHandler>();
-        private readonly ProductDetailsDbContext dbContext;
+        static readonly ILog log = LogManager.GetLogger<OrderPlacedHandler>();
+        readonly ProductDetailsDbContext dbContext;
 
         public OrderPlacedHandler(ProductDetailsDbContext dbContext)
         {

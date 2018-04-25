@@ -9,7 +9,7 @@
     [Route("product")]
     public class ProductDetailsController : Controller
     {
-        private readonly ProductDetailsDbContext context;
+        readonly ProductDetailsDbContext context;
 
         public ProductDetailsController(ProductDetailsDbContext context)
         {
@@ -50,7 +50,11 @@
         public IActionResult GetById(int id)
         {
             var item = context.ProductDetails.FirstOrDefault(t => t.Id == id);
-            if (item == null) return NotFound();
+            if (item == null)
+            {
+                return NotFound();
+            }
+
             return new ObjectResult(item);
         }
 
@@ -58,7 +62,10 @@
         [Route("order")]
         public IActionResult GetByOrderIds(string orderIds)
         {
-            if (orderIds == null) return NotFound();
+            if (orderIds == null)
+            {
+                return NotFound();
+            }
 
             var orderIdList = orderIds.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => s)
                 .ToList();

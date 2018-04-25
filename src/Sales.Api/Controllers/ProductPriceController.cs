@@ -9,7 +9,7 @@
     [Route("product")]
     public class ProductPriceController : Controller
     {
-        private readonly SalesDbContext context;
+        readonly SalesDbContext context;
 
         public ProductPriceController(SalesDbContext context)
         {
@@ -28,14 +28,22 @@
         public IActionResult GetById(long id)
         {
             var item = context.ProductPrices.FirstOrDefault(t => t.Id == id);
-            if (item == null) return NotFound();
+            if (item == null)
+            {
+                return NotFound();
+            }
+
             return new ObjectResult(item);
         }
 
         [HttpGet]
         public IActionResult GetById(string productIds)
         {
-            if (productIds == null) return NotFound();
+            if (productIds == null)
+            {
+                return NotFound();
+            }
+
             var productIdList = productIds.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse).ToList();
             var productsList = context.ProductPrices.Where(p => productIdList.Contains(p.ProductId)).ToList();

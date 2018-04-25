@@ -10,7 +10,7 @@
 
     public static class CommonNServiceBusConfiguration
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(CommonNServiceBusConfiguration));
+        static readonly ILog log = LogManager.GetLogger(typeof(CommonNServiceBusConfiguration));
 
         public static void ApplyCommonNServiceBusConfiguration(this EndpointConfiguration endpointConfiguration,
             IContainer autofacExternalContainer = null, bool enableMonitoring = true,
@@ -43,8 +43,10 @@
             }
 
             if (autofacExternalContainer != null)
+            {
                 endpointConfiguration.UseContainer<AutofacBuilder>(
                     customizations => { customizations.ExistingLifetimeScope(autofacExternalContainer); });
+            }
 
             endpointConfiguration.EnableInstallers();
 
@@ -65,7 +67,7 @@
             }
         }
 
-        private static void ConfigureRouting<T>(TransportExtensions<T> transport)
+        static void ConfigureRouting<T>(TransportExtensions<T> transport)
             where T : TransportDefinition
         {
             var routing = transport.Routing();

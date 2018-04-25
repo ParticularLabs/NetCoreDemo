@@ -9,8 +9,8 @@
 
     public class OrderAcceptedHandler : IHandleMessages<OrderAccepted>
     {
-        private static readonly ILog log = LogManager.GetLogger<OrderAcceptedHandler>();
-        private static readonly Random random = new Random();
+        static readonly ILog log = LogManager.GetLogger<OrderAcceptedHandler>();
+        static readonly Random random = new Random();
 
         public async Task Handle(OrderAccepted message, IMessageHandlerContext context)
         {
@@ -28,7 +28,7 @@
             });
         }
 
-        private Task ThisIsntGoingToScaleWell()
+        Task ThisIsntGoingToScaleWell()
         {
             return Task.Delay(random.Next(250, 350));
         }

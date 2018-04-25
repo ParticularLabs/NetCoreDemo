@@ -8,7 +8,7 @@
 
     public class CancelOrderHandler : IHandleMessages<CancelOrder>
     {
-        private readonly SalesDbContext dbContext;
+        readonly SalesDbContext dbContext;
 
         public CancelOrderHandler(SalesDbContext dbContext)
         {

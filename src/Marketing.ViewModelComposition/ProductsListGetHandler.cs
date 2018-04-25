@@ -41,7 +41,7 @@
             vm.Products = orderDictionary.Values;
         }
 
-        private IDictionary<dynamic, dynamic> MapToViewModelDictionary(dynamic[] products)
+        IDictionary<dynamic, dynamic> MapToViewModelDictionary(dynamic[] products)
         {
             var dictionary = new Dictionary<dynamic, dynamic>();
 

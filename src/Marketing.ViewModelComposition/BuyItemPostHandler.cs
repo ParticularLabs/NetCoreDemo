@@ -9,7 +9,7 @@
 
     public class BuyItemPostHandler : IHandleRequests
     {
-        private readonly IMessageSession session;
+        readonly IMessageSession session;
 
         public BuyItemPostHandler(IMessageSession messageSession)
         {

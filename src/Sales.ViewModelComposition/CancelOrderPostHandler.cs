@@ -9,7 +9,7 @@
 
     public class CancelOrderPostHandler : IHandleRequests
     {
-        private readonly IMessageSession session;
+        readonly IMessageSession session;
 
         public CancelOrderPostHandler(IMessageSession messageSession)
         {

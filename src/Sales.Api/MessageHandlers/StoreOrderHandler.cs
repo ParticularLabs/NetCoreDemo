@@ -10,7 +10,7 @@
 
     public class StoreOrderHandler : IHandleMessages<StoreOrder>
     {
-        private readonly SalesDbContext dbContext;
+        readonly SalesDbContext dbContext;
 
         public StoreOrderHandler(SalesDbContext dbContext)
         {
@@ -37,7 +37,7 @@
             }).ConfigureAwait(false);
         }
 
-        private decimal GetPriceFor(int productId)
+        decimal GetPriceFor(int productId)
         {
             var price = dbContext.ProductPrices.Where(p => p.ProductId == productId)
                 .Select(productPrice => productPrice.Price).First();

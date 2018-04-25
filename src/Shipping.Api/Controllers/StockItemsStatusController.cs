@@ -9,7 +9,7 @@
     [Route("product")]
     public class StockItemsStatusController : Controller
     {
-        private readonly StockItemDbContext context;
+        readonly StockItemDbContext context;
 
         public StockItemsStatusController(StockItemDbContext context)
         {
@@ -28,14 +28,22 @@
         public IActionResult GetById(int id)
         {
             var item = context.StockItems.FirstOrDefault(t => t.ProductId == id);
-            if (item == null) return NotFound();
+            if (item == null)
+            {
+                return NotFound();
+            }
+
             return new ObjectResult(item);
         }
 
         [HttpGet]
         public IActionResult GetById(string productIds)
         {
-            if (productIds == null) return NotFound();
+            if (productIds == null)
+            {
+                return NotFound();
+            }
+
             var productIdList = productIds.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse).ToList();
             var productsList = context.StockItems.Where(p => productIdList.Contains(p.ProductId)).ToList();

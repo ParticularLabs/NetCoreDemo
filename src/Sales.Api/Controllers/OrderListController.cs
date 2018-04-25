@@ -7,7 +7,7 @@
     [Route("order")]
     public class OrderListController : Controller
     {
-        private readonly SalesDbContext context;
+        readonly SalesDbContext context;
 
         public OrderListController(SalesDbContext context)
         {

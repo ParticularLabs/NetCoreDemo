@@ -10,17 +10,21 @@
 
     internal class Program
     {
-        private static async Task Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.Title = "ITOps.WarehouseBridge";
 
             var asqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoAzureStorageQueueTransport");
             if (string.IsNullOrEmpty(asqConnectionString))
+            {
                 Console.WriteLine("Connection for Azure Storage Queue transport is missing or empty.");
+            }
 
             var rabbitMqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoRabbitMQTransport");
             if (string.IsNullOrEmpty(asqConnectionString))
+            {
                 Console.WriteLine("Connection for RabbitMQ transport is missing or empty.");
+            }
 
             var bridgeConfiguration = Bridge
                 .Between<AzureStorageQueueTransport>("bridge-warehouse", transport =>
@@ -55,7 +59,7 @@
                 .ConfigureAwait(false);
         }
 
-        private static void UILoop()
+        static void UILoop()
         {
             while (true)
             {

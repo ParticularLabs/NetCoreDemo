@@ -10,7 +10,7 @@
         IAmStartedByMessages<OrderBilled>,
         IAmStartedByMessages<OrderAccepted>
     {
-        private static readonly ILog log = LogManager.GetLogger<OrderShipmentSaga>();
+        static readonly ILog log = LogManager.GetLogger<OrderShipmentSaga>();
 
         public Task Handle(OrderAccepted message, IMessageHandlerContext context)
         {
@@ -37,7 +37,7 @@
                 .ToSaga(sagaData => sagaData.OrderId);
         }
 
-        public Task CompleteSagaIfBothEventsReceived()
+        public void CompleteSagaIfBothEventsReceived()
         {
             if (Data.IsOrderBilled && Data.IsOrderAccepted)
             {
@@ -45,8 +45,6 @@
                     $"Order '{Data.OrderId}' is ready to ship as both OrderAccepted and OrderBilled events has been received.");
                 MarkAsComplete();
             }
-
-            return Task.CompletedTask;
         }
     }
 }

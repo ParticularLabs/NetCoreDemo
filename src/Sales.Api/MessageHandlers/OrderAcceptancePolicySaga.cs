@@ -12,7 +12,7 @@
         IAmStartedByMessages<CancelOrder>,
         IHandleTimeouts<BuyersRemorseIsOver>
     {
-        private static readonly ILog log = LogManager.GetLogger<OrderAcceptancePolicySaga>();
+        static readonly ILog log = LogManager.GetLogger<OrderAcceptancePolicySaga>();
 
         public Task Handle(CancelOrder message, IMessageHandlerContext context)
         {
