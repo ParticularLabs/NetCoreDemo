@@ -1,0 +1,32 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Stock Management</h2>
+    </div>
+    <div class="col-md-3">
+        <h2>Apple iPhone X</h2>
+        <form method="post">
+            <input type="submit" class="btn btn-success" value="Add" formaction="/product/addstock/1" />
+            <input type="submit" class="btn btn-danger" value="Remove" formaction="/product/removestock/1" />
+        </form>
+    </div>
+    <div class="col-md-3">
+        <h2>Google Pixel 2 XL</h2>
+        <form method="post">
+            <input type="submit" class="btn btn-success" value="Add" formaction="/product/addstock/2" />
+            <input type="submit" class="btn btn-danger" value="Remove" formaction="/product/removestock/2" />
+        </form>
+    </div>
+    <div class="col-md-3">
+        <h2>Galaxy Note 8</h2>
+        <form method="post">
+            <input type="submit" class="btn btn-success" value="Add" formaction="/product/addstock/3" />
+            <input type="submit" class="btn btn-danger" value="Remove" formaction="/product/removestock/3" />
+        </form>
+    </div>
+</div>
