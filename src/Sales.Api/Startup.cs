@@ -52,6 +52,9 @@
             }
 
             app.UseMvc();
+
+            var context = app.ApplicationServices.GetService<SalesDbContext>();
+            DataInitializer.Initialize(context);
         }
 
         IMessageSession BootstrapNServiceBusForMessaging(IContainer container)
