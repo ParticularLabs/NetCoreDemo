@@ -29,7 +29,7 @@
             await messageSession.Publish(message)
                 .ConfigureAwait(false);
 
-            return View("Restock");
+            return View("Restock", id);
         }
 
         public async Task<IActionResult> RemoveStock(int id)
@@ -43,7 +43,7 @@
             await messageSession.Publish(message)
                 .ConfigureAwait(false);
 
-            return View("Restock");
+            return View("Restock", id);
         }
     }
 }
