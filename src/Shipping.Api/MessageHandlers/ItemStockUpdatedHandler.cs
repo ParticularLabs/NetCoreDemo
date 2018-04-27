@@ -7,12 +7,12 @@
     using Shipping.Api.Data;
     using Warehouse.Azure;
 
-    public class ItemRestockedHandler : IHandleMessages<ItemStockUpdated>
+    public class ItemStockUpdatedHandler : IHandleMessages<ItemStockUpdated>
     {
         static readonly ILog log = LogManager.GetLogger<ItemStockUpdated>();
         readonly StockItemDbContext dbContext;
 
-        public ItemRestockedHandler(StockItemDbContext dbContext)
+        public ItemStockUpdatedHandler(StockItemDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
