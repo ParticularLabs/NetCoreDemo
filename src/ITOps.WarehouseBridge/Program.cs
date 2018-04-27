@@ -5,11 +5,14 @@
     using NServiceBus;
     using NServiceBus.Bridge;
     using NServiceBus.Configuration.AdvancedExtensibility;
+    using NServiceBus.Logging;
     using NServiceBus.Serialization;
     using NServiceBus.Settings;
 
     internal class Program
     {
+        static readonly ILog log = LogManager.GetLogger("ITOps.WarehouseBridge");
+
         static async Task Main(string[] args)
         {
             Console.Title = "ITOps.WarehouseBridge";
@@ -17,13 +20,13 @@
             var asqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoAzureStorageQueueTransport");
             if (string.IsNullOrEmpty(asqConnectionString))
             {
-                Console.WriteLine("Connection for Azure Storage Queue transport is missing or empty.");
+                log.Info("Connection for Azure Storage Queue transport is missing or empty.");
             }
 
             var rabbitMqConnectionString = Environment.GetEnvironmentVariable("NetCoreDemoRabbitMQTransport");
             if (string.IsNullOrEmpty(asqConnectionString))
             {
-                Console.WriteLine("Connection for RabbitMQ transport is missing or empty.");
+                log.Info("Connection for RabbitMQ transport is missing or empty.");
             }
 
             var bridgeConfiguration = Bridge
@@ -52,8 +55,14 @@
             await bridge.Start()
                 .ConfigureAwait(false);
 
-            Console.WriteLine("Press ESC key to exit");
-            UILoop();
+            log.Info("Bridge is up and running.");
+
+            // To run locally, uncomment the following two lines
+            //Console.WriteLine("Press ESC key to exit");
+            //UILoop();
+
+            // To run locally, comment out this line
+            while (true) {}
 
             await bridge.Stop()
                 .ConfigureAwait(false);
