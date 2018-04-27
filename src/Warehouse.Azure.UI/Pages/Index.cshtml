@@ -4,25 +4,33 @@
     ViewData["Title"] = "Home page";
 }
 
+<div class="container" style="margin: 1.5em 0 0 0;">
+<h1 class="section-title" style="margin: 0 0 0.56em 0;">Stock Management</h1>
 <div class="row">
-    <div class="col-md-3">
-        <h2>Stock Management</h2>
-    </div>
     <form method="post">
-        <div class="col-md-3">
-            <h2>Apple iPhone X</h2>
-            <input type="submit" class="btn btn-success" value="Add" formaction="/product/addstock/1" />
-            <input type="submit" class="btn btn-danger" value="Remove" formaction="/product/removestock/1" />
-        </div>
-        <div class="col-md-3">
-            <h2>Google Pixel 2 XL</h2>
-            <input type="submit" class="btn btn-success" value="Add" formaction="/product/addstock/2" />
-            <input type="submit" class="btn btn-danger" value="Remove" formaction="/product/removestock/2" />
-        </div>
-        <div class="col-md-3">
-            <h2>Galaxy Note 8</h2>
-            <input type="submit" class="btn btn-success" value="Add" formaction="/product/addstock/3" />
-            <input type="submit" class="btn btn-danger" value="Remove" formaction="/product/removestock/3" />
+        <div class="card-deck">
+            <div class="card text-center">
+                <h6 class="card-title p-2" >Apple iPhone X</h6>
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-success" value="Add" formaction="/product/addstock/1"/>
+                    <input type="submit" class="btn btn-danger" value="Remove" formaction="/product/removestock/1"/>
+                </div>
+            </div>
+            <div class="card text-center">
+                <h6 class="card-title p-2">Google Pixel 2 XL</h6>
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-success" value="Add" formaction="/product/addstock/2"/>
+                    <input type="submit" class="btn btn-danger" value="Remove" formaction="/product/removestock/2"/>
+                </div>
+            </div>
+            <div class="card text-center">
+                <h6 class="card-title p-2">Galaxy Note 8</h6>
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-success" value="Add" formaction="/product/addstock/3"/>
+                    <input type="submit" class="btn btn-danger" value="Remove" formaction="/product/removestock/3"/>
+                </div>
+            </div>
         </div>
     </form>
+</div>
 </div>
