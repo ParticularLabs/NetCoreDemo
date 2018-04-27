@@ -10,3 +10,4 @@ start_service Sales.Api
 start_service Shipping.Api
 start_service Billing.Api
 start_service EShop.UI
+start_service ITOps.WarehouseBridge

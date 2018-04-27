@@ -25,3 +25,4 @@ publish_app Shipping.Api
 publish_app Billing.Api
 publish_app EShop.UI
 publish_app LoadGenerator
+publish_app ITOps.WarehouseBridge
