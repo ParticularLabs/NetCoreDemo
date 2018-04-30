@@ -11,6 +11,7 @@ namespace Warehouse.Azure.UI
     public class Startup
     {
         static ILog log = LogManager.GetLogger(typeof(Program));
+        private IEndpointInstance endpoint;
 
         public Startup(IConfiguration configuration)
         {
@@ -23,11 +24,14 @@ namespace Warehouse.Azure.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            BootstrapNServiceBusForMessaging(services);
+
+            endpoint = BootstrapNServiceBusForMessaging(services);
+
+            services.AddSingleton<IMessageSession>(endpoint);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -47,9 +51,11 @@ namespace Warehouse.Azure.UI
                     "default",
                     "{controller=Product}/{action=Index}/{id?}");
             });
+
+            applicationLifetime.ApplicationStopping.Register(() => endpoint.Stop().GetAwaiter().GetResult());
         }
 
-        void BootstrapNServiceBusForMessaging(IServiceCollection services)
+        IEndpointInstance BootstrapNServiceBusForMessaging(IServiceCollection services)
         {
             var endpointConfiguration = new EndpointConfiguration("Warehouse");
             endpointConfiguration.SendFailedMessagesTo("error");
@@ -70,9 +76,7 @@ namespace Warehouse.Azure.UI
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
             endpointConfiguration.EnableInstallers();
 
-            var endpointInstance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
-
-            services.AddSingleton<IMessageSession>(endpointInstance);
+            return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
     }
 }

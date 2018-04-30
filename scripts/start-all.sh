@@ -1,7 +1,7 @@
 mkdir -p pid
 function start_service () {
     echo "Starting $1..."
-    (cd ~/$1 && exec dotnet $1.dll > /dev/null 2>&1 & echo $! > ./pid/$1.pid )
+    (cd ~/$1 && exec dotnet $1.dll > /dev/null 2>&1 & echo $! > ./pid/$1 )
 }
 
 
