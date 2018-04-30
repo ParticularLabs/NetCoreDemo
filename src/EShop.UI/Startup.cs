@@ -10,6 +10,8 @@
 
     public class Startup
     {
+        IEndpointInstance endpoint;
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -17,11 +19,12 @@
             services.AddViewModelComposition();
             services.AddMvc()
                 .AddViewModelCompositionMvcSupport();
-            BootstrapNServiceBusForMessaging(services);
+
+            endpoint = BootstrapNServiceBusForMessaging(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -38,13 +41,14 @@
             app.UseStaticFiles();
         }
 
-        void BootstrapNServiceBusForMessaging(IServiceCollection services)
+        IEndpointInstance BootstrapNServiceBusForMessaging(IServiceCollection services)
         {
             var endpointConfiguration = new EndpointConfiguration("EShop.UI");
             endpointConfiguration.PurgeOnStartup(true);
             endpointConfiguration.ApplyCommonNServiceBusConfiguration();
             var instance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
             services.AddSingleton<IMessageSession>(instance);
+            return instance;
         }
     }
 }

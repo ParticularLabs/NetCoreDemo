@@ -9,7 +9,7 @@
 
     public class Startup
     {
-        IEndpointInstance endpointInstance;
+        IEndpointInstance endpoint;
 
         public Startup(IConfiguration configuration)
         {
@@ -35,20 +35,15 @@
 
             app.UseMvc();
 
-            appLifetime.ApplicationStopping.Register(OnShutdown);
-        }
-
-        void OnShutdown()
-        {
-            endpointInstance.Stop().GetAwaiter().GetResult();
+            appLifetime.ApplicationStopping.Register(() => endpoint.Stop().GetAwaiter().GetResult());
         }
 
         void BootstrapNServiceBusForMessaging(IServiceCollection services)
         {
             var endpointConfiguration = new EndpointConfiguration("Billing.Api");
             endpointConfiguration.ApplyCommonNServiceBusConfiguration();
-            endpointInstance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
-            services.AddSingleton<IMessageSession>(endpointInstance);
+            endpoint = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            services.AddSingleton<IMessageSession>(endpoint);
         }
     }
 }
