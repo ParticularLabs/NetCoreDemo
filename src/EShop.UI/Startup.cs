@@ -39,6 +39,8 @@
             });
 
             app.UseStaticFiles();
+
+            appLifetime.ApplicationStopping.Register(() => endpoint.Stop().GetAwaiter().GetResult());
         }
 
         IEndpointInstance BootstrapNServiceBusForMessaging(IServiceCollection services)
