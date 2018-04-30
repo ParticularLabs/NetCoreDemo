@@ -5,6 +5,6 @@ for file in ~/pid/*.pid; do
   filename=$(basename $file)
   pid=$(cat $file)
   echo "Killing process $pid: dotnet $filename"
-  kill $pid
+  kill -s SIGINT $pid
   rm $file
 done

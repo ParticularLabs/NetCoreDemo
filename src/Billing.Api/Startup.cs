@@ -9,6 +9,8 @@
 
     public class Startup
     {
+        IEndpointInstance endpointInstance;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,7 +26,7 @@
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -32,14 +34,21 @@
             }
 
             app.UseMvc();
+
+            appLifetime.ApplicationStopping.Register(OnShutdown);
+        }
+
+        void OnShutdown()
+        {
+            endpointInstance.Stop().GetAwaiter().GetResult();
         }
 
         void BootstrapNServiceBusForMessaging(IServiceCollection services)
         {
             var endpointConfiguration = new EndpointConfiguration("Billing.Api");
             endpointConfiguration.ApplyCommonNServiceBusConfiguration();
-            var instance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
-            services.AddSingleton<IMessageSession>(instance);
+            endpointInstance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            services.AddSingleton<IMessageSession>(endpointInstance);
         }
     }
 }
