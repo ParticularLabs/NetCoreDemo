@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for file in ~/pid/*.pid; do
+for file in ~/pid/*; do
   [ -e "$file" ] || continue
   filename=$(basename $file)
   pid=$(cat $file)
