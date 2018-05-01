@@ -1,13 +1,8 @@
-mkdir -p pid
-function start_service () {
-    echo "Starting $1..."
-    (cd ~/$1 && exec dotnet $1.dll > /dev/null 2>&1 & echo $! > ./pid/$1 )
-}
+#!/bin/bash
 
-
-start_service Marketing.Api
-start_service Sales.Api
-start_service Shipping.Api
-start_service Billing.Api
-start_service EShop.UI
-start_service ITOps.WarehouseBridge
+./start.sh Marketing.Api
+./start.sh Sales.Api
+./start.sh Shipping.Api
+./start.sh Billing.Api
+./start.sh EShop.UI
+./start.sh ITOps.WarehouseBridge

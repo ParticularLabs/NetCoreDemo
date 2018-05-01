@@ -1,10 +1,9 @@
 #!/bin/bash
 
-for file in ~/pid/*; do
-  [ -e "$file" ] || continue
-  filename=$(basename $file)
-  pid=$(cat $file)
-  echo "Killing process $pid: dotnet $filename"
-  kill -s SIGINT $pid
-  rm $file
-done
+./stop.sh Marketing.Api
+./stop.sh Sales.Api
+./stop.sh Shipping.Api
+./stop.sh Billing.Api
+./stop.sh EShop.UI
+./stop.sh ITOps.WarehouseBridge
+
