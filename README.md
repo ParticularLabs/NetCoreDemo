@@ -100,11 +100,11 @@ The script `deploy.sh` will build and deploy the application to a Linux machine 
 
 NOTE: This section is optional
 
-`Warehouse.Azure` is a separate MVC application that will add or remove stock. It is used to demonstrate how to integrate with an application developed by another team in your organization. In this scenario, the external team uses an Azure Storage Queue and sends `ItemStockUpdated` events to it. Even though the Warehouse.Azure team maintains its own database and infrastructure, we want to be notified about changes in stock so we can update our EShop application accordingly.
+`Warehouse.Azure` is a separate MVC application that will add or remove stock. It is used to demonstrate how to integrate with an application developed by another team in your organization. In this scenario, the external team uses Azure Storage Queue as the underlying queuing transport and publishes `ItemStockUpdated` events for products. Even though the Warehouse.Azure team maintains its own database and infrastructure, we want to be notified about changes in stock so we can update our EShop application accordingly. This is done by "bridging" the `Warehouse.Azure` team's Azure Storage queue to our RabbitMQ queue using [NServiceBus.Bridge](https://docs.particular.net/nservicebus/bridge/?version=bridge_2).
 
 To set up the Warehouse.Azure project:
 
-1. Create a queue in Azure Storage
+1. Set up a queue in Azure Storage and make a note of the connection string for it
 1. Deploy Warehouse.Azure to an Azure website
 1. Set an environment variable called `NetCoreDemoAzureStorageQueueTransport` with the connection string for your Azure Storage queue
 
