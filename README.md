@@ -95,3 +95,23 @@ At this point, you can increase or decrease the load in the LoadGenerator consol
 ## Deploying the application to Linux
 
 The script `deploy.sh` will build and deploy the application to a Linux machine using the `scp` command. Update the `DEPLOY_SERVER` variable at the top of the script to match your environment. Other changes may be required to this script to ensure the `scp` command has the proper permissions for your environment.
+
+## Bridging with Azure (optional)
+
+NOTE: This section is optional
+
+`Warehouse.Azure` is a separate MVC application that will add or remove stock. It is used to demonstrate how to integrate with an application developed by another team in your organization. In this scenario, the external team uses an Azure Storage Queue and sends `ItemStockUpdated` events to it. Even though the Warehouse.Azure team maintains its own database and infrastructure, we want to be notified about changes in stock so we can update our EShop application accordingly.
+
+To set up the Warehouse.Azure project:
+
+1. Create a queue in Azure Storage
+1. Deploy Warehouse.Azure to an Azure website
+1. Set an environment variable called `NetCoreDemoAzureStorageQueueTransport` with the connection string for your Azure Storage queue
+
+At this point, you can navigate to the Warehouse.Azure website and add or remove stock. This will fire the relevant events in the queue on Azure Storage. To consume the events in EShop:
+
+1. Ensure your EShop deployment environment also has a `NetCoreDemoAzureStorageQueueTransport` environment variable, similar to the `NetCoreDemoRabbitMQTransport` variable
+1. Add the ITOps.WarehouseBridge project to the list of startup projects
+1. Launch the solution
+
+Now when stock is added or removed in the Warehouse.Azure UI, the Azure Storage Queue events will be bridged to RabbitMQ and we can consume them as we would any other event.
