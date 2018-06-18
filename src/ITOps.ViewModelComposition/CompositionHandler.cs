@@ -24,7 +24,7 @@
 
             try
             {
-                foreach (var subscriber in interceptors.OfType<ISubscribeToViewModelCompositionEvent>())
+                foreach (var subscriber in matching.OfType<ISubscribeToViewModelCompositionEvent>())
                     subscriber.RegisterCallback(vm);
 
                 foreach (var handler in matching.OfType<IHandleRequests>())
