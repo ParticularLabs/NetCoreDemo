@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/EShop.UI/EShop.UI.csproj"
+                "${workspaceFolder}/src/EShop.sln"
             ],
             "problemMatcher": "$msCompile"
         }
