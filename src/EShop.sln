@@ -2,31 +2,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.Api", "Sales.Api\Sales.Api.csproj", "{923C74FC-7E42-43D7-8B0C-5DF529760F0A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Api", "Sales.Api\Sales.Api.csproj", "{923C74FC-7E42-43D7-8B0C-5DF529760F0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketing.Api", "Marketing.Api\Marketing.Api.csproj", "{83B9F670-9F99-4AFB-B613-A81B5AA711CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketing.Api", "Marketing.Api\Marketing.Api.csproj", "{83B9F670-9F99-4AFB-B613-A81B5AA711CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITOps.ViewModelComposition", "ITOps.ViewModelComposition\ITOps.ViewModelComposition.csproj", "{C8B32DD4-1CBA-4FA4-80E1-C98E5FA0A4C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITOps.ViewModelComposition", "ITOps.ViewModelComposition\ITOps.ViewModelComposition.csproj", "{C8B32DD4-1CBA-4FA4-80E1-C98E5FA0A4C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITOps.ViewModelComposition.Mvc", "ITOps.ViewModelComposition.Mvc\ITOps.ViewModelComposition.Mvc.csproj", "{EB61F7B6-6C24-4118-8C61-215A194A5D69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITOps.ViewModelComposition.Mvc", "ITOps.ViewModelComposition.Mvc\ITOps.ViewModelComposition.Mvc.csproj", "{EB61F7B6-6C24-4118-8C61-215A194A5D69}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.UI", "EShop.UI\EShop.UI.csproj", "{4C60AD34-57C3-48E7-84BC-DF087045F127}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.UI", "EShop.UI\EShop.UI.csproj", "{4C60AD34-57C3-48E7-84BC-DF087045F127}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketing.ViewModelComposition", "Marketing.ViewModelComposition\Marketing.ViewModelComposition.csproj", "{DFDF3B4F-09EE-4D52-A987-2089C14F4877}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketing.ViewModelComposition", "Marketing.ViewModelComposition\Marketing.ViewModelComposition.csproj", "{DFDF3B4F-09EE-4D52-A987-2089C14F4877}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.ViewModelComposition", "Sales.ViewModelComposition\Sales.ViewModelComposition.csproj", "{7936EF9A-4D3B-4EF3-AD1A-3E8D94573518}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.ViewModelComposition", "Sales.ViewModelComposition\Sales.ViewModelComposition.csproj", "{7936EF9A-4D3B-4EF3-AD1A-3E8D94573518}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITOps.Shared", "ITOps.Shared\ITOps.Shared.csproj", "{6787D59E-D392-4972-A1AA-6619EA70A0ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITOps.Shared", "ITOps.Shared\ITOps.Shared.csproj", "{6787D59E-D392-4972-A1AA-6619EA70A0ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billing.Api", "Billing.Api\Billing.Api.csproj", "{71E2DA48-8787-43FA-8D28-B347FE37AD17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Api", "Billing.Api\Billing.Api.csproj", "{71E2DA48-8787-43FA-8D28-B347FE37AD17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shipping.Api", "Shipping.Api\Shipping.Api.csproj", "{632A7B0A-9105-467F-BA97-6029705F710D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping.Api", "Shipping.Api\Shipping.Api.csproj", "{632A7B0A-9105-467F-BA97-6029705F710D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shipping.ViewModelComposition", "Shipping.ViewModelComposition\Shipping.ViewModelComposition.csproj", "{4347D114-7714-491E-9C18-B7BD8A02FA1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping.ViewModelComposition", "Shipping.ViewModelComposition\Shipping.ViewModelComposition.csproj", "{4347D114-7714-491E-9C18-B7BD8A02FA1B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadGenerator", "LoadGenerator\LoadGenerator.csproj", "{019BC2DB-EEED-475B-978D-9D22C9401034}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadGenerator", "LoadGenerator\LoadGenerator.csproj", "{019BC2DB-EEED-475B-978D-9D22C9401034}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITOps.WarehouseBridge", "ITOps.WarehouseBridge\ITOps.WarehouseBridge.csproj", "{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITOps.WarehouseBridge", "ITOps.WarehouseBridge\ITOps.WarehouseBridge.csproj", "{1DE9FAC9-5924-462D-A120-EE7A3086A4D9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Billing", "Billing", "{DC365AB3-65BC-4FB0-A19C-6487DEE826B9}"
 EndProject
@@ -38,17 +38,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shipping", "Shipping", "{7A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{48F829A5-5B04-4A2D-AB62-5C4A282F6C25}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billing.Events", "Billing.Events\Billing.Events.csproj", "{9AB22B5B-1C13-45E5-8D2F-FBB77F4342CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Events", "Billing.Events\Billing.Events.csproj", "{9AB22B5B-1C13-45E5-8D2F-FBB77F4342CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.Events", "Sales.Events\Sales.Events.csproj", "{6E883F79-514A-47FD-A296-4664A0B6D937}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Events", "Sales.Events\Sales.Events.csproj", "{6E883F79-514A-47FD-A296-4664A0B6D937}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketing.Events", "Marketing.Events\Marketing.Events.csproj", "{63E11264-5DFB-4421-A2AF-42F98B8A292C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketing.Events", "Marketing.Events\Marketing.Events.csproj", "{63E11264-5DFB-4421-A2AF-42F98B8A292C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shipping.Internal", "Shipping.Internal\Shipping.Internal.csproj", "{4F8EB392-0934-45C0-BE99-60157C64BBE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping.Internal", "Shipping.Internal\Shipping.Internal.csproj", "{4F8EB392-0934-45C0-BE99-60157C64BBE6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.Internal", "Sales.Internal\Sales.Internal.csproj", "{34E4E553-54DC-4D6C-9D04-C49E9D5AB829}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Internal", "Sales.Internal\Sales.Internal.csproj", "{34E4E553-54DC-4D6C-9D04-C49E9D5AB829}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketing.Internal", "Marketing.Internal\Marketing.Internal.csproj", "{DE2B9DB0-A31B-4C9E-AD57-624BF9D6D54D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketing.Internal", "Marketing.Internal\Marketing.Internal.csproj", "{DE2B9DB0-A31B-4C9E-AD57-624BF9D6D54D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
