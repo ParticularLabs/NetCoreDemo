@@ -4,17 +4,50 @@
    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
    "version": "0.2.0",
    "configurations": [
-       {
-           "name": "Billing.Api",
-           "type": "coreclr",
-           "request": "launch",
-           "preLaunchTask": "build",
-           "program": "${workspaceFolder}/src/Billing.Api/bin/Debug/netcoreapp2.0/Billing.Api.dll",
-           "args": [],
-           "cwd": "${workspaceFolder}/src/Billing.Api",
-           "stopAtEntry": false,
-           "console": "externalTerminal"
-       },
+        {
+            "name": "Billing.Api",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Billing.Api/bin/Debug/netcoreapp2.0/Billing.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Billing.Api",
+            "stopAtEntry": false,
+            "console": "externalTerminal"
+        },
+        {
+            "name": "Marketing.Api",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Marketing.Api/bin/Debug/netcoreapp2.0/Marketing.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Marketing.Api",
+            "stopAtEntry": false,
+            "console": "externalTerminal"
+        },
+        {
+            "name": "Sales.Api",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Sales.Api/bin/Debug/netcoreapp2.0/Sales.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Sales.Api",
+            "stopAtEntry": false,
+            "console": "externalTerminal"
+        },
+        {
+            "name": "Shipping.Api",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Shipping.Api/bin/Debug/netcoreapp2.0/Shipping.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Shipping.Api",
+            "stopAtEntry": false,
+            "console": "externalTerminal"
+        },
         {
             "name": "EShop.UI",
             "type": "coreclr",
@@ -56,10 +89,13 @@
     ,],
     "compounds": [
         {
-            "name": "Debug All",
+            "name": "Debug All EShop",
             "configurations": [
+                "Billing.Api",
+                "Marketing.Api",
+                "Sales.Api",
+                "Shipping.Api",
                 "EShop.UI",
-
             ]
         }
     ]
